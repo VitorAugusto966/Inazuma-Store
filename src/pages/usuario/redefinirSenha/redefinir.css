@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #141e30, #243b55);
+    color: white;
+}
+
+.forgot-password-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.forgot-password-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #00aaff;
+}
+
+.logo:hover {
+    color: #00ffe9;
+}
+
+.subtitle-redefinir {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+
+.input-group-redefinir {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+    width: 100%;
+    margin-bottom: 15px;
+    color:white;
+}
+
+
+.input-group-redefinir:focus-within {
+    border: 1px solid #00aaff;
+}
+
+.input-group-redefinir input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: transparent;
+    color: white;
+    padding: 8px;
+}
+
+.input-group-redefinir .icon {
+    font-size: 18px;
+    color: #00aaff;
+    margin-right: 10px;
+}
+
+.send-btn {
+    background: #00aaff;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    width: 100%;
+}
+
+.send-btn:hover {
+    background: #0088cc;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #00aaff;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    color: #0088cc;
+}
+
+.back-link svg {
+    margin-right: 5px;
+}
+
+.input-group-redefinir input:-webkit-autofill,
+.input-group-redefinir input:-webkit-autofill:hover,
+.input-group-redefinir input:-webkit-autofill:focus,
+.input-group-redefinir input:-webkit-autofill:active {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: white !important;
+    -webkit-text-fill-color: white !important;
+    box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.15) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}

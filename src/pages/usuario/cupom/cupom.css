@@ -1,0 +1,153 @@
+.content-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: #f4f6f8;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.cupons-container {
+  width: 100%;
+  max-width: 900px; 
+  background: white;
+  padding: 35px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cupons-container h2 {
+  text-align: center;
+  font-size: 26px; 
+  color: #222;
+  font-weight: 700;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cupons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-height: 55vh;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+.cupom-card {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #007bff;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.cupom-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.cupom-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cupom-info p {
+    color: #444; 
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.cupom-info .icon {
+  color: #007bff;
+  margin-right: 5px;
+}
+
+.check-icon {
+  font-size: 22px;
+  color: #28a745;
+}
+
+.cupom-input-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 2px dashed #ddd;
+}
+
+.cupom-input-container input {
+  flex: 1;
+  max-width: 320px;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.cupom-input-container input:focus {
+  border-color: #007bff;
+}
+
+.cupom-input-container button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.cupom-input-container button:hover {
+  background: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 86, 179, 0.3);
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .cupons-container {
+    max-width: 95%;
+    padding: 25px;
+  }
+
+  .cupom-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .cupom-input-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cupom-input-container input {
+    max-width: 100%;
+  }
+
+  .cupom-input-container button {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,192 @@
+.app-container {
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+.sidebar {
+  width: max-content;
+  height: calc(100vh - 60px);
+}
+
+.pedido-info p {
+  color: #444;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.content-container-pedido {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: #eef1f5;
+  padding: 30px;
+  overflow: hidden;
+}
+
+.pedidos-container {
+  width: 100%;
+  max-width: 1100px;
+  background: white;
+  padding: 35px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.pedidos-container h2 {
+  text-align: center;
+  font-size: 28px;
+  color: #222;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.pedidos-list {
+  flex: 1;
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.pedidos-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pedidos-list::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 10px;
+}
+
+.pedidos-list::-webkit-scrollbar-track {
+  background: #d1d1d1;
+  border-radius: 10px;
+}
+
+.pedido-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border-top: 2px solid #007bff;
+  border-left: 5px solid #007bff;
+  transition: all 0.3s ease;
+}
+
+.pedido-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.pedido-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pedido-info .icon {
+  color: #007bff;
+  margin-right: 6px;
+}
+
+.status {
+  font-weight: bold;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-left: 3px;
+}
+
+.status.entregue {
+  background: #28a7451a;
+  color: #28a745;
+}
+
+.status.em-trânsito {
+  background: #ffc1071a;
+  color: #ffc107;
+}
+
+.status.processando {
+  background: #17a2b81a;
+  color: #17a2b8;
+}
+
+.status.cancelado {
+  background: #f80f0f1a;
+  color: #f80f0f;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 12px;
+}
+
+.details-btn,
+.track-btn {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.details-btn {
+  background: #007bff;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.details-btn:hover {
+  background: #0056b3;
+  box-shadow: 0 6px 14px rgba(0, 86, 179, 0.3);
+  transform: scale(1.04);
+}
+
+.track-btn {
+  background: #28a745;
+  color: white;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
+}
+
+.track-btn:hover {
+  background: #218838;
+  box-shadow: 0 6px 14px rgba(40, 167, 69, 0.3);
+  transform: scale(1.04);
+}
+
+.empty-list{
+  color:black;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .pedido-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .details-btn,
+  .track-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

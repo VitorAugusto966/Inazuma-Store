@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #141e30, #243b55);
+    color: white;
+}
+
+.register-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.register-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+
+.logo {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #00aaff;
+}
+.logo:hover{
+    color: #00ffe9;
+}
+.subtitle {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: white;
+}
+.input-group input::placeholder {
+    color: #aaa;
+    opacity: 1; 
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    transition: 0.3s;
+    outline: none;
+}
+
+.input-group input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #00aaff;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #00aaff;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background: #0088cc;
+}
+
+.btn-login:disabled {
+    background: #444;
+    cursor: not-allowed;
+}
+
+.extra-links {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-link,
+.forgot-link {
+    text-decoration: none;
+    font-size: 14px;
+    color: #00aaff;
+    transition: 0.3s;
+}
+
+.login-link:hover,
+.forgot-link:hover {
+    color: #0088cc;
+}
