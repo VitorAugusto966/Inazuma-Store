@@ -14,19 +14,19 @@ Você ainda pode visualizar as telas, testar a navegação e explorar a experiê
 
 ## 🚀 Tecnologias Utilizadas
 
-### **Frontend**
-- React.js
-- Redux (para gerenciamento de estado)
-- React Router (para navegação)
-- Bootstrap (para estilização)
-- Leaflet (para rastreamento de pedidos)
+### **🖥️ Frontend**
+- ⚛️ **React.js** (estrutura da interface)
+- 🔄 **Redux** (gerenciamento de estado)
+- 🚏 **React Router** (navegação)
+- 🎨 **Bootstrap** (estilização responsiva)
+- 🗺️ **Leaflet** (rastreamento de pedidos)
 
-### **Backend**
-- Node.js + Express
-- MySQL (banco de dados)
-- JWT (para autenticação)
-- Nodemailer (envio de emails)
-- bcryptjs (para criptografia de senhas)
+### **🖥️ Backend**
+- 🟢 **Node.js + Express** (API e servidor)
+- 🛢️ **MySQL** (banco de dados)
+- 🔑 **JWT** (autenticação segura)
+- 📧 **Nodemailer** (envio de emails)
+- 🔐 **bcryptjs** (criptografia de senhas)
 
 ## 🎯 Funcionalidades
 
