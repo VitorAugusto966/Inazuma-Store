@@ -26,6 +26,8 @@ Você ainda pode visualizar as telas, testar a navegação e explorar a experiê
 - MySQL (banco de dados)
 - JWT (para autenticação)
 - Nodemailer (envio de emails)
+- bcryptjs (para criptografia de senhas)
+
 ## 🎯 Funcionalidades
 
 ### **🛍️  Produtos**
