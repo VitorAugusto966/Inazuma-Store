@@ -19,8 +19,13 @@ export default function Cart() {
     useEffect(() => {
         document.title = "Inazuma Store - Carrinho";
     }, []);
-
+    
+    function verifyAddress(user) {
+        return user?.address && Object.values(user.address).every(field => field);
+    }
+    
     function goToCheckout() {
+
         if (!user?.id || !token) {
             toast.warning("Você precisa estar logado para finalizar a compra.");
             return;
@@ -31,6 +36,11 @@ export default function Cart() {
             return;
         }
 
+        if (!verifyAddress(user)){
+            toast.warning("Você precisa fornecer um endereço para finalizar a compra.");
+            return;
+        }
+        
         navigate("/checkout", {
             state: {
                 userId: user.id,

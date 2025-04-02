@@ -12,10 +12,11 @@ import PedidoMap from "../pages/pedido/map-pedido";
 import MeusPedidos from "../pages/pedido/view-pedido";
 import DetailPedido from "../pages/pedido/detail-pedido";
 import Cupons from "../pages/usuario/cupom";
-import Checkout from "../pages/pedido/checkout"
-import Error from "../pages/components/error"
-import Categoria from '../pages/produto/categoria'
+import Checkout from "../pages/pedido/checkout";
+import Error from "../pages/components/error";
+import Categoria from '../pages/produto/categoria';
 import Busca from "../pages/produto/busca";
+import ProdutoDetalhe from '../pages/produto/produto-detalhe';
 
 function RoutesApp() {
     return (
@@ -27,6 +28,7 @@ function RoutesApp() {
             <Route path="/redefinir-senha" element={<RedefinirSenha />} />
             <Route path="/categoria/:categoria" element={<Categoria />} />
             <Route path="/busca/:produto" element={<Busca />} /> 
+            <Route path="/produto-detalhes" element={<ProdutoDetalhe/>} />
 
             {/* Rotas protegidas */}
             <Route path="/profile" element={<Private><Profile /></Private>} />

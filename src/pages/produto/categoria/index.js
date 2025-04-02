@@ -7,6 +7,7 @@ import { toggleFavorite } from "../../../redux/favorito/favoritoSlice";
 import { getFavoritos, favoritar, excluir } from "../../../services/favoriteService";
 import Header from "../../components/header";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "./categoria.css";
 
 const traduzirCategoria = (categoria) => {
@@ -24,6 +25,7 @@ const traduzirCategoria = (categoria) => {
 export default function Categoria() {
     const { categoria } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector(state => state.user.user);
     const favoriteItems = useSelector(state => state.favorites.favoriteItems);
     const [produtos, setProdutos] = useState([]);
@@ -91,7 +93,10 @@ export default function Categoria() {
                         produtos.map((produto) => {
                             const isFavorited = favoriteItems.some(item => item.id === produto.id);
                             return (
-                                <div className="product-card-categoria" key={produto.id}>
+                                <div className="product-card-categoria" key={produto.id}
+                                onClick={() => navigate("/produto-detalhes", { state: { produto } })}
+                                >
+                                    
                                     <div
                                         className="favorite-icon"
                                         onClick={() => handleToggleFavorite(produto)}

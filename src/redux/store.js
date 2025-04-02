@@ -6,21 +6,31 @@ import storage from "redux-persist/lib/storage";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist/es/constants";
 import  userReducer  from './user/userSlice';
 
-const persistConfig = {
-  key: "root",
+const cartPersistConfig = {
+  key: "cart",
   storage,
 };
 
+const favoritoPersistConfig = {
+  key: "favorites",
+  storage,
+};
 
-const persistedCartReducer = persistReducer(persistConfig, cartReducer);
-const persistedFavoritoReducer = persistReducer(persistConfig, favoritoReducer);
-const persistedUserReducer = persistReducer(persistConfig, userReducer);
+const userPersistConfig = {
+  key: "user",
+  storage,
+};
+
+const persistedCartReducer = persistReducer(cartPersistConfig, cartReducer);
+const persistedFavoritoReducer = persistReducer(favoritoPersistConfig, favoritoReducer);
+const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
+
 
 export const Store = configureStore({
   reducer: {
     cart: persistedCartReducer,
     favorites: persistedFavoritoReducer,
-    user: persistedUserReducer
+    user: persistedUserReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

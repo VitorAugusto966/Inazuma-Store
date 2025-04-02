@@ -30,7 +30,7 @@ export default function Login() {
       return;
     }
 
-    if (attempts >= 3) {
+    if (attempts >= 5) {
       toast.error("Muitas tentativas. Tente novamente mais tarde.");
       return;
     }

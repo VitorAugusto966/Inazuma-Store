@@ -10,7 +10,7 @@ export default function Sidebar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch(logout()); 
+    dispatch(logout());
     dispatch(clearFavorites()); 
     navigate("/"); 
   };

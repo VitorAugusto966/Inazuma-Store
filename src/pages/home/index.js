@@ -96,17 +96,23 @@ export default function Home() {
                 </div>
             </section>
 
-
             <section className="highlight-products">
                 <h2>Produtos em Destaque</h2>
                 <div className="product-grid">
                     {produtos.slice(0, 8).map((produto) => {
                         const isFavorited = favoriteItems.some(item => item.id === produto.id);
                         return (
-                            <div className="product-card" key={produto.id}>
+                            <div 
+                                className="product-card" 
+                                key={produto.id} 
+                                onClick={() => navigate("/produto-detalhes", { state: { produto } })}
+                            >
                                 <div
                                     className="favorite-icon"
-                                    onClick={() => handleToggleFavorite(produto)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleToggleFavorite(produto);
+                                    }}
                                     style={{ background: isFavorited ? "rgba(255, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.7)" }}
                                 >
                                     <FaHeart className={`heart ${isFavorited ? "red" : "white"}`} />
@@ -115,7 +121,10 @@ export default function Home() {
                                 <h4>{produto.title}</h4>
                                 <p className="product-price">R$ {produto.price.toFixed(2)}</p>
                                 <button className="btn-buy">Comprar</button>
-                                <button className="btn-add-cart" onClick={() => handleAddToCart(produto)}>
+                                <button className="btn-add-cart" onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleAddToCart(produto);
+                                }}>
                                     <FaShoppingCart /> Adicionar ao Carrinho
                                 </button>
                             </div>

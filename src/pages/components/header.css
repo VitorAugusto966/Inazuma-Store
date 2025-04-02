@@ -81,9 +81,6 @@
   transform: rotate(10deg);
 }
 
-.nav-text {
-  display: none;
-}
 
 .fav:hover {
   color: red;
