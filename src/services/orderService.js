@@ -1,6 +1,6 @@
 const base_URL = "http://localhost:3001/api/orders";
 
-export async function createOrder(userId, shippingAddress, items, totalAmount, token, paymentStatus) {
+export async function createOrder(userId, shippingAddress, items, totalAmount, token, paymentStatus, email) {
     try {
         if (!token) throw new Error("Usuário não autenticado!");
 
@@ -10,7 +10,7 @@ export async function createOrder(userId, shippingAddress, items, totalAmount, t
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({ userId, shippingAddress, items, totalAmount, paymentStatus }) 
+            body: JSON.stringify({ userId, shippingAddress, items, totalAmount, paymentStatus, email }) 
         });
 
         if (!response.ok) {

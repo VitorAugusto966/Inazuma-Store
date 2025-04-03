@@ -6,7 +6,6 @@ const { enviarEmail } = require("../controller/emailController");
 require("dotenv").config();
 
 
-
 const UserController = {
   async register(req, res) {
     try {
@@ -124,8 +123,9 @@ const UserController = {
         destinatario: user.email,
         assunto: "🔑 Recuperação de Senha - Inazuma Store",
         mensagem: `Olá, ${user.nome_usuario}! <br/><br/>
-              Sua nova senha temporária é: <strong>${novaSenha}</strong> <br/><br/>
-              Por segurança, recomendamos que você altere essa senha ao fazer login.`
+                  Sua nova senha temporária é: <strong>${novaSenha}</strong> <br/><br/>
+                  Por segurança, recomendamos que você altere essa senha ao fazer login.`,
+        anexos: []
       });
 
       return res.json({ message: "Uma nova senha foi enviada para seu e-mail!" });

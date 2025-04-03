@@ -94,7 +94,6 @@ export default function Categoria() {
                             const isFavorited = favoriteItems.some(item => item.id === produto.id);
                             return (
                                 <div className="product-card-categoria" key={produto.id}
-                                onClick={() => navigate("/produto-detalhes", { state: { produto } })}
                                 >
                                     
                                     <div
@@ -107,6 +106,7 @@ export default function Categoria() {
                                     <img
                                         src={produto.thumbnail || "https://via.placeholder.com/150"}
                                         alt={produto.title}
+                                        onClick={() => navigate("/produto-detalhes", { state: { produto } })}
                                         className="product-image"
                                     />
                                     <div className="product-details">

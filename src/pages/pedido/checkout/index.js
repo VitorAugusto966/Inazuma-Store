@@ -47,7 +47,8 @@ export default function Checkout() {
                 })),
                 totalPrice,
                 user.token,
-                "Pendente"
+                "Pendente",
+                user.email
             );
 
             if (order) {
