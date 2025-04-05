@@ -1,11 +1,11 @@
 .app-container {
   display: flex;
-  height: calc(100vh - 60px);
+  height: 90.7vh;
 }
 
 .sidebar {
   width: max-content;
-  height: calc(100vh - 60px);
+  height: 90.7vh;
 }
 
 .pedido-info p {

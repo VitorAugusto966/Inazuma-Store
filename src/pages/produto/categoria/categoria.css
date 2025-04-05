@@ -93,7 +93,7 @@ body {
   transform: scale(1.2);
 }
 
-.product-image {
+.product-image-c {
   width: 100%;
   max-height: 200px;
   object-fit: contain;
@@ -102,7 +102,7 @@ body {
   transition: transform 0.3s ease;
 }
 
-.product-card-categoria:hover .product-image {
+.product-card-categoria:hover .product-image-c {
   transform: scale(1.05);
 }
 

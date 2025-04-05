@@ -11,13 +11,13 @@ import { getTrackingByOrder } from "../../../services/orderTrackingService";
 const createIcon = (url) =>
     new L.Icon({ iconUrl: url, iconSize: [40, 40], iconAnchor: [20, 40], popupAnchor: [0, -35] });
 
-const warehouseIcon = createIcon("https://cdn-icons-png.flaticon.com/512/2897/2897731.png"); 
-const truckIcon = createIcon("https://cdn-icons-png.flaticon.com/512/3081/3081648.png"); 
-const deliveryIcon = createIcon("https://cdn-icons-png.flaticon.com/512/1048/1048313.png"); 
-const homeIcon = createIcon("https://cdn-icons-png.flaticon.com/512/484/484167.png"); 
-const cancelIcon = createIcon("https://cdn-icons-png.flaticon.com/512/1828/1828778.png"); 
+const warehouseIcon = createIcon("https://cdn-icons-png.flaticon.com/512/2897/2897731.png");
+const truckIcon = createIcon("https://cdn-icons-png.flaticon.com/512/3081/3081648.png");
+const deliveryIcon = createIcon("https://cdn-icons-png.flaticon.com/512/1048/1048313.png");
+const homeIcon = createIcon("https://cdn-icons-png.flaticon.com/512/484/484167.png");
+const cancelIcon = createIcon("https://cdn-icons-png.flaticon.com/512/1828/1828778.png");
 
-const defaultPosition = [-23.55052, -46.633308]; 
+const defaultPosition = [-23.55052, -46.633308];
 
 export default function PedidoMap() {
     const location = useLocation();
@@ -43,7 +43,7 @@ export default function PedidoMap() {
 
             try {
                 const data = await getTrackingByOrder(pedido.id, user.token);
-                
+
                 const statusIcons = {
                     "Processando": warehouseIcon,
                     "Pedido Confirmado": warehouseIcon,
@@ -106,8 +106,8 @@ export default function PedidoMap() {
         return trackingData.filter(entry => entry.status !== "Em trânsito").concat(lastInTransit);
     }, [showLastInTransit, trackingData, lastInTransit]);
 
-    const mapCenter = useMemo(() => 
-        filteredTrackingData.length > 0 ? filteredTrackingData[0].position : defaultPosition, 
+    const mapCenter = useMemo(() =>
+        filteredTrackingData.length > 0 ? filteredTrackingData[0].position : defaultPosition,
         [filteredTrackingData]
     );
 
@@ -143,24 +143,29 @@ export default function PedidoMap() {
                             </div>
                             <div className="tracking-info">
                                 <h2>📦 Status do Pedido</h2>
-                                <ul className="timeline">
-                                    {trackingData.map((point, index) => (
-                                        <li key={index}>
-                                            <div className="circle"></div>
-                                            <div className="tracking-text">
-                                                <strong>{point.status}</strong>
-                                                <span>{point.city}</span>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
+                                {trackingData.length === 0 ? (
+                                    <p className="no-tracking-message">📭 Nenhuma atualização de rastreamento disponível.</p>
+                                ) : (
+                                    <ul className="timeline">
+                                        {trackingData.map((point, index) => (
+                                            <li key={index}>
+                                                <div className="circle"></div>
+                                                <div className="tracking-text">
+                                                    <strong>{point.status}</strong>
+                                                    <span>{point.city}</span>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
                                 <label className="filter-checkbox">
                                     <input
                                         type="checkbox"
                                         checked={showLastInTransit}
                                         onChange={() => setShowLastInTransit(prev => !prev)}
+                                        disabled={trackingData.length === 0}
                                     />
-                                    Mostrar apenas o último "Em trânsito"
+                                    <span>Mostrar apenas o último "Em trânsito"</span>
                                 </label>
                             </div>
                         </>

@@ -40,7 +40,7 @@ const User = sequelize.define("User", {
       return rawValue;
     },
     set(value) {
-      if (!value) return; 
+      if (!value) return;
 
       if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
         this.setDataValue("data_nascimento", value);
@@ -58,7 +58,19 @@ const User = sequelize.define("User", {
   senha: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  role: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "user",
+    validate: {
+      isIn: {
+        args: [["user", "admin"]],
+        msg: "Role inválida"
+      }
+    }
   }
+
 }, {
   tableName: "users",
   timestamps: false,

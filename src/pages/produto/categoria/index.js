@@ -107,7 +107,7 @@ export default function Categoria() {
                                         src={produto.thumbnail || "https://via.placeholder.com/150"}
                                         alt={produto.title}
                                         onClick={() => navigate("/produto-detalhes", { state: { produto } })}
-                                        className="product-image"
+                                        className="product-image-c"
                                     />
                                     <div className="product-details">
                                         <h4>{produto.title}</h4>

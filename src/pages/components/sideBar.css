@@ -3,15 +3,16 @@
   position: fixed;
   top: 0;
   left: 0;
-  background: white;
-  border-right: 2px solid #e8e8e8;
-  padding: 25px;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease-in-out;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  padding: 30px 20px;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  height: 100vh;
+  gap: 20px;
+  transition: all 0.3s ease-in-out;
+  z-index: 100;
 }
 
 .sidebar ul {
@@ -20,44 +21,55 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .sidebar ul li {
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
 }
 
-.sidebar ul li a {
+.sidebar ul li a,
+.sidebar .logout-btn {
   display: flex;
   align-items: center;
   gap: 14px;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 600;
   color: #333;
-  padding: 14px;
-  border-radius: 8px;
-  transition: all 0.3s ease-in-out;
+  padding: 12px 16px;
+  border-radius: 10px;
+  transition: all 0.25s ease-in-out;
+  background: transparent;
+  width: 100%;
 }
 
-.sidebar ul li a svg {
+.sidebar ul li a svg,
+.sidebar .logout-btn svg {
   font-size: 20px;
+  color: #007bff;
+  transition: color 0.25s ease;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li.logout:hover {
+  background: #f5f9ff;
+  transform: scale(1.01);
+}
+
+.sidebar ul li:hover a,
+.sidebar ul li.logout:hover .logout-btn {
   color: #007bff;
 }
 
-.sidebar ul li:hover {
-  background: rgba(0, 123, 255, 0.1);
-  transform: scale(1.02);
-}
-
-.sidebar ul li:hover a {
+.sidebar ul li:hover a svg,
+.sidebar ul li.logout:hover .logout-btn svg {
   color: #007bff;
 }
 
 .sidebar ul li.active {
-  background: #007bff;
-  border-left: 4px solid #0056b3;
+  background-color: #007bff;
 }
 
 .sidebar ul li.active a {
@@ -68,34 +80,28 @@
   color: white;
 }
 
-.sidebar ul li.logout .logout-btn {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #d9534f;
-  padding: 14px;
+.logout-btn {
   border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
   cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.3s ease-in-out;
+  text-align: left;
+  background: transparent;
+  color: #d9534f;
+  font-weight: 600;
 }
 
-.sidebar ul li.logout .logout-btn svg {
-  font-size: 20px;
+.logout-btn svg {
   color: #d9534f;
 }
 
 .sidebar ul li.logout:hover {
-  background: rgba(217, 83, 79, 0.12);
-  transform: scale(1.02);
+  background: #fff5f5;
 }
 
 .sidebar ul li.logout:hover .logout-btn {
+  color: #d9534f;
+}
+
+.sidebar ul li.logout:hover .logout-btn svg {
   color: #d9534f;
 }
 
@@ -106,13 +112,13 @@
   }
 
   .sidebar ul li a,
-  .sidebar ul li .logout-btn {
+  .sidebar .logout-btn {
     font-size: 14px;
-    padding: 12px;
+    padding: 10px 14px;
   }
 
   .sidebar ul li a svg,
-  .sidebar ul li .logout-btn svg {
+  .sidebar .logout-btn svg {
     font-size: 18px;
   }
 }

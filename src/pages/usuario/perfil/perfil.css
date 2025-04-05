@@ -1,11 +1,11 @@
 .app-container {
   display: flex;
-  height: calc(100vh - 60px);
+  height: 90.7vh;
 }
 
 .sidebar {
   width: max-content;
-  height: calc(100vh - 60px);
+  height: 90.7vh;
   position: relative;
 }
 
@@ -15,6 +15,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   background: #f8f9fa;
+  height: 90.7vh;
 }
 
 .profile-container {
