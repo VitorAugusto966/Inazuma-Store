@@ -56,6 +56,10 @@ Você ainda pode visualizar as telas, testar a navegação e explorar a experiê
 ### **🎟️ Cupons de Desconto**
 - Aplicação de cupons válidos na finalização da compra
 
+### 🔐 Autenticação
+- Registro e login de usuários com JWT
+- Criptografia de senhas com bcrypt
+
 ## 🚀 Como Rodar o Projeto
 
 ### **1️⃣ Clonar o Repositório**
