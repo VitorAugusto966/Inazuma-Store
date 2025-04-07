@@ -46,6 +46,9 @@
     transition: transform 0.2s ease;
 }
 
+.cart-item span{
+    color:black;
+}
 .cart-item:hover {
     transform: scale(1.02);
 }

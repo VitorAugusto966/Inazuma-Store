@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { searchProducts } from "../../../services/produtoService";
 import { addToCart } from "../../../redux/cart/cartSlice";
@@ -12,6 +12,7 @@ import "./busca.css";
 export default function Busca() {
     const { produto } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector(state => state.user.user);
     const favoriteItems = useSelector(state => state.favorites.favoriteItems);
     const [produtos, setProdutos] = useState([]);
@@ -89,7 +90,8 @@ export default function Busca() {
                         produtos.map((produto) => {
                             const isFavorited = favoriteItems.some(item => item.id === produto.id);
                             return (
-                                <div key={produto.id} className="product-card">
+                                <div key={produto.id} className="product-card-busca">
+                                    
                                     <div
                                         className="favorite-icon"
                                         onClick={() => handleToggleFavorite(produto)}
@@ -100,6 +102,7 @@ export default function Busca() {
                                     <img
                                         src={produto.thumbnail || "https://via.placeholder.com/150"}
                                         alt={produto.title}
+                                        onClick={() => navigate("/produto-detalhes", { state: { produto } })}
                                         className="product-image"
                                     />
                                     <div className="product-details">
