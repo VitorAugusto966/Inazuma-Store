@@ -1,6 +1,6 @@
-const { User } = require("../model/User");
-const { Order } = require("../model/Order");
-const { Voucher } = require("../model/Voucher");
+const User = require("../model/User");
+const Order  = require("../model/Order");
+const Voucher = require("../model/Voucher");
 
 const AdminController = {
   async dashboard(req, res) {
@@ -28,6 +28,7 @@ const AdminController = {
 
       res.json(usuarios);
     } catch (err) {
+      console.error(err);
       res.status(500).json({ message: "Erro ao listar usuários", error: err.message });
     }
   },

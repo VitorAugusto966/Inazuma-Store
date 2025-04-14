@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Private from "./Private";
+import PrivateAdmin from "./PrivateAdmin";
+
 import Login from "../pages/login";
 import CadastroUsuario from "../pages/usuario/cadUsuario";
 import Home from "../pages/home";
@@ -17,6 +19,7 @@ import Error from "../pages/components/error";
 import Categoria from '../pages/produto/categoria';
 import Busca from "../pages/produto/busca";
 import ProdutoDetalhe from '../pages/produto/produto-detalhe';
+import AdminUsuarios from "../pages/admin/usuario";
 
 function RoutesApp() {
     return (
@@ -27,8 +30,8 @@ function RoutesApp() {
             <Route path="/cadastro-usuario" element={<CadastroUsuario />} />
             <Route path="/redefinir-senha" element={<RedefinirSenha />} />
             <Route path="/categoria/:categoria" element={<Categoria />} />
-            <Route path="/busca/:produto" element={<Busca />} /> 
-            <Route path="/produto-detalhes" element={<ProdutoDetalhe/>} />
+            <Route path="/busca/:produto" element={<Busca />} />
+            <Route path="/produto-detalhes" element={<ProdutoDetalhe />} />
 
             {/* Rotas protegidas */}
             <Route path="/profile" element={<Private><Profile /></Private>} />
@@ -41,6 +44,8 @@ function RoutesApp() {
             <Route path="/pedido-map" element={<Private><PedidoMap /></Private>} />
             <Route path="/pedido-detalhe" element={<Private><DetailPedido /></Private>} />
 
+            {/* Rotas ADMIN */}
+            <Route path="/admin/usuarios" element={<PrivateAdmin><AdminUsuarios /></PrivateAdmin>} />
 
             {/* Redirecionamento para páginas não encontradas */}
             <Route path="*" element={<Error />} />

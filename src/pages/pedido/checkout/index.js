@@ -179,7 +179,7 @@ export default function Checkout() {
           <p className="total-price">
             Total: R$ {totalComDesconto.toFixed(2)}{" "}
             {ehDescontoTotal && frete > 0 && (
-              <span style={{ fontSize: "0.9rem", color: "#888" }}>
+              <span style={{ fontSize: "0.9rem", color: "#000" }}>
                 (valor do frete)
               </span>
             )}
