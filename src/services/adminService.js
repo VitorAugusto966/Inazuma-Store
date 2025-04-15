@@ -1,31 +1,32 @@
 const base_URL = "http://localhost:3001/api/admin";
 
 export async function getUsuariosAdmin(token) {
-    try {
-      const response = await fetch(`${base_URL}/usuarios`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Erro ao listar usuários");
-      }
-      return await response.json();
-    } catch (error) {
-      console.error("Erro ao buscar usuários:", error);
-      return [];
-    }
-  }
-  
-
-export async function deletarUsuarioAdmin(id) {
   try {
-    const response = await fetch(`${base_URL}/deletarUsuario/${id}`, {
-      method: "DELETE",
+    const response = await fetch(`${base_URL}/usuarios`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (!response.ok) {
-      throw new Error("Erro ao deletar usuário");
+      throw new Error("Erro ao listar usuários");
     }
+    return await response.json();
+  } catch (error) {
+    console.error("Erro ao buscar usuários:", error);
+    return [];
+  }
+}
+
+
+export async function deletarUsuarioAdmin(id, token) {
+  try {
+    const response = await fetch(`${base_URL}/usuarios/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) throw new Error("Erro ao deletar usuário");
     return await response.json();
   } catch (error) {
     console.error("Erro ao deletar usuário:", error);
@@ -33,12 +34,14 @@ export async function deletarUsuarioAdmin(id) {
   }
 }
 
-export async function getPedidosAdmin() {
+export async function getPedidosAdmin(token) {
   try {
-    const response = await fetch(`${base_URL}/listarPedidos`);
-    if (!response.ok) {
-      throw new Error("Erro ao listar pedidos");
-    }
+    const response = await fetch(`${base_URL}/pedidos`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) throw new Error("Erro ao listar pedidos");
     return await response.json();
   } catch (error) {
     console.error("Erro ao buscar pedidos:", error);
@@ -46,12 +49,14 @@ export async function getPedidosAdmin() {
   }
 }
 
-export async function getCuponsAdmin() {
+export async function getCuponsAdmin(token) {
   try {
-    const response = await fetch(`${base_URL}/listarCupons`);
-    if (!response.ok) {
-      throw new Error("Erro ao listar cupons");
-    }
+    const response = await fetch(`${base_URL}/cupons`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) throw new Error("Erro ao listar cupons");
     return await response.json();
   } catch (error) {
     console.error("Erro ao buscar cupons:", error);
@@ -59,16 +64,17 @@ export async function getCuponsAdmin() {
   }
 }
 
-export async function criarCupom(codigo, desconto, validade) {
+export async function criarCupom(name, description, expirationDate, token) {
   try {
-    const response = await fetch(`${base_URL}/criarCupom`, {
+    const response = await fetch(`${base_URL}/cupons`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ codigo, desconto, validade }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name, description, expirationDate }),
     });
-    if (!response.ok) {
-      throw new Error("Erro ao criar cupom");
-    }
+    if (!response.ok) throw new Error("Erro ao criar cupom");
     return await response.json();
   } catch (error) {
     console.error("Erro ao criar cupom:", error);
@@ -76,14 +82,15 @@ export async function criarCupom(codigo, desconto, validade) {
   }
 }
 
-export async function deletarCupom(id) {
+export async function deletarCupom(id, token) {
   try {
-    const response = await fetch(`${base_URL}/deletarCupom/${id}`, {
+    const response = await fetch(`${base_URL}/cupons/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    if (!response.ok) {
-      throw new Error("Erro ao deletar cupom");
-    }
+    if (!response.ok) throw new Error("Erro ao deletar cupom");
     return await response.json();
   } catch (error) {
     console.error("Erro ao deletar cupom:", error);
@@ -91,12 +98,14 @@ export async function deletarCupom(id) {
   }
 }
 
-export async function getDashboardStats() {
+export async function getDashboardStats(token) {
   try {
-    const response = await fetch(`${base_URL}/dashboard`);
-    if (!response.ok) {
-      throw new Error("Erro ao buscar dados do dashboard");
-    }
+    const response = await fetch(`${base_URL}/dashboard`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) throw new Error("Erro ao buscar dados do dashboard");
     return await response.json();
   } catch (error) {
     console.error("Erro ao buscar dashboard:", error);

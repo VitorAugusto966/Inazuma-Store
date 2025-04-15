@@ -20,6 +20,7 @@ import Categoria from '../pages/produto/categoria';
 import Busca from "../pages/produto/busca";
 import ProdutoDetalhe from '../pages/produto/produto-detalhe';
 import AdminUsuarios from "../pages/admin/usuario";
+import AdminCupons from "../pages/admin/cupom";
 
 function RoutesApp() {
     return (
@@ -46,6 +47,7 @@ function RoutesApp() {
 
             {/* Rotas ADMIN */}
             <Route path="/admin/usuarios" element={<PrivateAdmin><AdminUsuarios /></PrivateAdmin>} />
+            <Route path="/admin/cupons" element={<PrivateAdmin><AdminCupons  /></PrivateAdmin>} />
 
             {/* Redirecionamento para páginas não encontradas */}
             <Route path="*" element={<Error />} />

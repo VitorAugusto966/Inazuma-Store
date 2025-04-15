@@ -3,23 +3,36 @@ import { getUsuariosAdmin } from "../../../services/adminService";
 import "./usuario.css";
 import { useSelector } from "react-redux";
 import Header from "../../components/header";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
+  const [loading, setLoading] = useState(true);
   const token = useSelector(state => state.user.user?.token);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
       try {
         const data = await getUsuariosAdmin(token);
         setUsuarios(data);
+
+        if (data.length === 0) {
+          navigate("/");
+        }
       } catch (err) {
+
+        navigate("/");
         console.error("Erro ao buscar usuários:", err);
+      } finally {
+        setLoading(false);
       }
     }
 
     fetchData();
-  }, [token]);
+  }, [token, navigate]);
+
+  if (loading) return <p>Carregando...</p>;
 
   return (
     <>
@@ -42,13 +55,12 @@ export default function AdminUsuarios() {
                 <td>{user.nome_usuario}</td>
                 <td>{user.email}</td>
                 <td>
-                  {user.role === 'admin' ? (
+                  {user.role === "admin" ? (
                     <span className="badge admin">Sim</span>
                   ) : (
                     <span className="badge not-admin">Não</span>
                   )}
                 </td>
-
               </tr>
             ))}
           </tbody>
@@ -56,5 +68,4 @@ export default function AdminUsuarios() {
       </div>
     </>
   );
-
 }
