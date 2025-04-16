@@ -21,6 +21,8 @@ import Busca from "../pages/produto/busca";
 import ProdutoDetalhe from '../pages/produto/produto-detalhe';
 import AdminUsuarios from "../pages/admin/usuario";
 import AdminCupons from "../pages/admin/cupom";
+import AdminHome from "../pages/admin/home";
+import AdminDashboard from "../pages/admin/dashboard";
 
 function RoutesApp() {
     return (
@@ -46,8 +48,10 @@ function RoutesApp() {
             <Route path="/pedido-detalhe" element={<Private><DetailPedido /></Private>} />
 
             {/* Rotas ADMIN */}
+            <Route path="/admin" element={<PrivateAdmin><AdminHome /></PrivateAdmin>} />
             <Route path="/admin/usuarios" element={<PrivateAdmin><AdminUsuarios /></PrivateAdmin>} />
             <Route path="/admin/cupons" element={<PrivateAdmin><AdminCupons  /></PrivateAdmin>} />
+            <Route path="/admin/dashboard" element={<PrivateAdmin><AdminDashboard/></PrivateAdmin>} />
 
             {/* Redirecionamento para páginas não encontradas */}
             <Route path="*" element={<Error />} />

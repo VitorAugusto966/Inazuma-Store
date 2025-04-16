@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.admin-home {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+}
+
+.admin-home h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.admin-home p {
+  font-size: 16px;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.admin-cards {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.admin-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  flex: 1 1 280px;
+  max-width: 320px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  text-align: center;
+}
+
+.admin-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+}
+
+.admin-card h2 {
+  font-size: 1.3rem;
+  color: #0d6efd;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.admin-card p {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.admin-icon {
+  font-size: 2rem;
+  color: #0d6efd;
+  margin-bottom: 0.5rem;
+}

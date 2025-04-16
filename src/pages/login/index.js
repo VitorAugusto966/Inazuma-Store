@@ -47,7 +47,13 @@ export default function Login() {
         }
 
         toast.success("Login efetuado com sucesso!");
-        navigate("/home", { replace: true });
+
+        if(userData.role === "user"){
+          navigate("/home", { replace: true });
+        }
+        else if(userData.role === "admin"){
+          navigate("/admin", { replace: true });
+        }
       } else {
         setAttempts((prev) => prev + 1);
         toast.warning("Credenciais inválidas!");

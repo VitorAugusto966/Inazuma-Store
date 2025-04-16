@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getCuponsAdmin, criarCupom } from "../../../services/adminService";
 import { useSelector } from "react-redux";
-import Header from "../../components/header";
+import AdminHeader from "../../components/adminHeader";
 import "./cupom.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -54,7 +54,7 @@ export default function AdminCupons() {
 
     return (
         <>
-            <Header />
+      <AdminHeader />
             <ToastContainer />
             <div className="admin-container">
                 <h1>🎁 Gerenciar Cupons</h1>
