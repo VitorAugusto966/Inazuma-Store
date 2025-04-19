@@ -23,6 +23,8 @@ import AdminUsuarios from "../pages/admin/usuario";
 import AdminCupons from "../pages/admin/cupom";
 import AdminHome from "../pages/admin/home";
 import AdminDashboard from "../pages/admin/dashboard";
+import AdminPedidos from "../pages/admin/pedido";
+import AdminGerenciarPedido from "../pages/admin/pedido/gerenciamento";
 
 function RoutesApp() {
     return (
@@ -52,7 +54,10 @@ function RoutesApp() {
             <Route path="/admin/usuarios" element={<PrivateAdmin><AdminUsuarios /></PrivateAdmin>} />
             <Route path="/admin/cupons" element={<PrivateAdmin><AdminCupons  /></PrivateAdmin>} />
             <Route path="/admin/dashboard" element={<PrivateAdmin><AdminDashboard/></PrivateAdmin>} />
+            <Route path="/admin/pedidos" element={<PrivateAdmin><AdminPedidos/></PrivateAdmin>} />
+            <Route path="/admin/pedidos/gerenciar" element={<PrivateAdmin><AdminGerenciarPedido/></PrivateAdmin>} />
 
+            
             {/* Redirecionamento para páginas não encontradas */}
             <Route path="*" element={<Error />} />
         </Routes>

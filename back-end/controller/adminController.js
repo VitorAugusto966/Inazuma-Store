@@ -1,6 +1,7 @@
 const User = require("../model/User");
 const Order = require("../model/Order");
 const Voucher = require("../model/Voucher");
+const OrderItem = require("../model/OrderItem")
 const { Op, fn, col } = require("sequelize");
 
 const AdminController = {
@@ -209,8 +210,18 @@ const AdminController = {
   async listarPedidos(req, res) {
     try {
       const pedidos = await Order.findAll({
-        include: ["produtos", "usuario"],
-        order: [["createdAt", "DESC"]],
+        include: [
+          {
+            model: OrderItem,
+            as: "order_items",
+          },
+          {
+            model: User,
+            as: "usuario",
+            attributes: ["id", "nome_usuario", "email", "nome_social", "data_nascimento"]
+          },
+        ],
+        order: [["createdAt", "ASC"]],
       });
 
       res.json(pedidos);
