@@ -51,7 +51,29 @@ const OrderController = {
             return res.status(500).json({ error: "Erro ao criar pedido", details: error.message });
         }
     },
+    async updateOrderStatus(req, res) {
+        try {
+            const { id } = req.params;
+            const { status } = req.body;
 
+            if (!status) {
+                return res.status(400).json({ error: "O novo status é obrigatório" });
+            }
+
+            const order = await Order.findByPk(id);
+            if (!order) {
+                return res.status(404).json({ error: "Pedido não encontrado" });
+            }
+
+            order.status = status;
+            await order.save();
+
+            return res.json({ message: "Status do pedido atualizado com sucesso", order });
+        } catch (error) {
+            console.error("Erro ao atualizar status do pedido:", error);
+            return res.status(500).json({ error: "Erro ao atualizar status", details: error.message });
+        }
+    },
     async getOrder(req, res) {
         try {
             const { id } = req.params;
@@ -136,9 +158,9 @@ async function generateOrderPDF(order, orderItems, filePath) {
         const columnWidths = { produto: 200, qtd: 50, valor: 100, subtotal: 100 };
 
         doc.text("Produto", startX, doc.y, { width: columnWidths.produto })
-           .text("Qtd", startX + columnWidths.produto, doc.y, { width: columnWidths.qtd, align: "right" })
-           .text("Valor Unit.", startX + columnWidths.produto + columnWidths.qtd, doc.y, { width: columnWidths.valor, align: "right" })
-           .text("Subtotal", startX + columnWidths.produto + columnWidths.qtd + columnWidths.valor, doc.y, { width: columnWidths.subtotal, align: "right" });
+            .text("Qtd", startX + columnWidths.produto, doc.y, { width: columnWidths.qtd, align: "right" })
+            .text("Valor Unit.", startX + columnWidths.produto + columnWidths.qtd, doc.y, { width: columnWidths.valor, align: "right" })
+            .text("Subtotal", startX + columnWidths.produto + columnWidths.qtd + columnWidths.valor, doc.y, { width: columnWidths.subtotal, align: "right" });
 
         doc.moveDown();
 

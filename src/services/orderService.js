@@ -73,4 +73,27 @@ export async function getAllUserOrders(userId, token) {
     }
 }
 
+export async function updateOrderStatus(orderId, status, token) {
+    try {
+        if (!token) throw new Error("Usuário não autenticado!");
 
+        const response = await fetch(`${base_URL}/${orderId}/status`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ status }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || "Erro ao atualizar status do pedido");
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Erro ao atualizar status do pedido:", error.message);
+        return null;
+    }
+}

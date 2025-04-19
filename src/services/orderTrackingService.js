@@ -1,6 +1,6 @@
 const base_URL = "http://localhost:3001/api/tracking";
 
-export async function addTrackingEntry(orderId, status, location, estimatedDelivery, token) {
+export async function addTrackingEntry(orderId, status, location, estimatedDelivery, trackingCode,token) {
     try {
         if (!token) throw new Error("Usuário não autenticado!");
 
@@ -10,7 +10,7 @@ export async function addTrackingEntry(orderId, status, location, estimatedDeliv
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({ orderId, status, location, estimatedDelivery }),
+            body: JSON.stringify({ orderId, status, location, estimatedDelivery, trackingCode }),
         });
 
         if (!response.ok) {
