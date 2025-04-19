@@ -74,14 +74,13 @@ O painel administrativo oferece controle total da loja, acessível apenas por us
 
 ### Funcionalidades:
 
-- 📦 Gerenciamento de Produtos
+- 📦 Gerenciamento de Pedidos
 - 📊 Dashboard com gráficos dinâmicos
 - 📁 Listagem e filtro de Pedidos
 - 🧑 Gestão de Usuários
 - 🚚 **Modal de Gerenciamento de Rastreamento**  
   - Alterar status de envio  
   - Atualizar localização em tempo real  
-  - Interface intuitiva com inputs otimizados e modal redimensionado
 
 ---
 
