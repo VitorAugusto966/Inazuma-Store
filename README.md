@@ -1,6 +1,6 @@
 # 🛒 Inazuma Store
 
-**Inazuma Store** é uma plataforma de e-commerce moderna e intuitiva, projetada para oferecer uma excelente experiência de compra online. O projeto inclui funcionalidades completas, como gerenciamento de produtos, carrinho de compras, favoritos, rastreamento de pedidos e cupons de desconto.
+**Inazuma Store** é uma plataforma de e-commerce moderna e intuitiva, projetada para oferecer uma excelente experiência de compra online. O projeto inclui funcionalidades completas como gerenciamento de produtos, carrinho de compras, favoritos, rastreamento de pedidos, cupons de desconto e um painel administrativo.
 
 ## 🌍 Acesse Online
 🔗 [Inazuma Store - Versão Online](https://inazuma-store.netlify.app/)  
@@ -12,53 +12,78 @@ Isso significa que algumas funcionalidades **não estão disponíveis**, pois de
 
 Você ainda pode visualizar as telas, testar a navegação e explorar a experiência do usuário! 🚀  
 
+---
+
 ## 🚀 Tecnologias Utilizadas
 
 ### **🖥️ Frontend**
 - ⚛️ **React.js** (estrutura da interface)
-- 🔄 **Redux** (gerenciamento de estado)
-- 🚏 **React Router** (navegação)
-- 🎨 **Bootstrap** (estilização responsiva)
-- 🗺️ **Leaflet** (rastreamento de pedidos)
+- 🔄 **Redux Toolkit** (gerenciamento de estado global)
+- 🚏 **React Router DOM** (navegação SPA)
+- 🎨 **Tailwind CSS** + **Bootstrap** (estilização moderna e responsiva)
+- 🗺️ **Leaflet** (rastreamento de pedidos com mapa interativo)
 
 ### **🖥️ Backend**
-- 🟢 **Node.js + Express** (API e servidor)
-- 🛢️ **MySQL** (banco de dados)
-- 🔑 **JWT** (autenticação segura)
-- 📧 **Nodemailer** (envio de emails)
+- 🟢 **Node.js + Express** (API REST)
+- 🛢️ **MySQL** (banco de dados relacional)
+- 🔑 **JWT** (autenticação segura via token)
+- 📧 **Nodemailer** (envio de emails automáticos)
 - 🔐 **bcryptjs** (criptografia de senhas)
+
+---
 
 ## 🎯 Funcionalidades
 
-### **🛍️  Produtos**
+### 🛍️ **Produtos**
 - Listagem de produtos em destaque
-- Filtragem de produtos por categoria
-- Barra de pesquisa para encontrar produtos específicos
+- Filtragem por categoria
+- Pesquisa por nome ou palavra-chave
 
-### **❤️ Favoritos**
-- Adicionar ou remover produtos da lista de favoritos
+### ❤️ **Favoritos**
+- Adição e remoção de produtos favoritos
 - Persistência dos favoritos para usuários autenticados
 
-### **🛒 Carrinho de Compras**
-- Adicionar e remover itens
-- Atualizar quantidades
-- Cálculo automático do total da compra
+### 🛒 **Carrinho de Compras**
+- Adição e remoção de produtos
+- Atualização de quantidades
+- Cálculo automático do total com cupons
 
-### **🏠 Perfil e Endereços**
-- Gerenciamento de informações do usuário
-- Cadastro e edição de endereços de entrega
+### 🧑‍💼 **Área do Usuário**
+- Edição de perfil
+- Cadastro e gestão de endereços
 
-### **📦 Pedidos e Rastreamento**
-- Visualização dos pedidos realizados
+### 📦 **Pedidos e Rastreamento**
+- Listagem dos pedidos do usuário
 - Detalhes completos de cada pedido
-- Rastreamento do pedido utilizando **Leaflet**
+- Rastreamento com status + localização (Leaflet)
 
-### **🎟️ Cupons de Desconto**
+### 🎟️ **Cupons de Desconto**
 - Aplicação de cupons válidos na finalização da compra
+- Validação em tempo real
 
-### 🔐 Autenticação
-- Registro e login de usuários com JWT
-- Criptografia de senhas com bcrypt
+### 🔐 **Autenticação**
+- Login/registro com JWT
+- Criptografia segura de senhas
+- Validação de tokens
+
+---
+
+## 🛠️ Painel Administrativo
+
+O painel administrativo oferece controle total da loja, acessível apenas por usuários autenticados com permissão de administrador.
+
+### Funcionalidades:
+
+- 📦 Gerenciamento de Produtos
+- 📊 Dashboard com gráficos dinâmicos
+- 📁 Listagem e filtro de Pedidos
+- 🧑 Gestão de Usuários
+- 🚚 **Modal de Gerenciamento de Rastreamento**  
+  - Alterar status de envio  
+  - Atualizar localização em tempo real  
+  - Interface intuitiva com inputs otimizados e modal redimensionado
+
+---
 
 ## 🚀 Como Rodar o Projeto
 
