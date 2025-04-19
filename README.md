@@ -20,7 +20,7 @@ Você ainda pode visualizar as telas, testar a navegação e explorar a experiê
 - ⚛️ **React.js** (estrutura da interface)
 - 🔄 **Redux Toolkit** (gerenciamento de estado global)
 - 🚏 **React Router DOM** (navegação SPA)
-- 🎨 **Tailwind CSS** + **Bootstrap** (estilização moderna e responsiva)
+- 🎨 **Bootstrap** (estilização moderna e responsiva)
 - 🗺️ **Leaflet** (rastreamento de pedidos com mapa interativo)
 
 ### **🖥️ Backend**
