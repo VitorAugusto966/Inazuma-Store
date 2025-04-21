@@ -7,7 +7,8 @@ const orderRoutes = require("./orderRoutes");
 const favoriteRoutes = require("./favoriteRoutes");
 const voucherRoutes = require("./voucherRoutes");
 const orderTracking = require("./orderTrackingRoutes");
-const adminRoutes = require("./adminRoutes")
+const adminRoutes = require("./adminRoutes");
+const sellerRoutes = require("./sellerRoutes");
 
 router.use("/users", userRoutes);
 router.use("/address", addressRoutes);
@@ -16,6 +17,7 @@ router.use("/favorites", favoriteRoutes);
 router.use("/vouchers", voucherRoutes);
 router.use("/tracking", orderTracking);
 router.use("/admin", adminRoutes);
+router.use("/seller", sellerRoutes);
 
 
 module.exports = router;
