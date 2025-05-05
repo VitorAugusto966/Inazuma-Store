@@ -1,6 +1,9 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Seller = require("../model/Seller");
+const crypto = require("crypto");
+const { enviarEmail } = require("../controller/emailController");
+
 require("dotenv").config();
 
 const SellerController = {
@@ -90,7 +93,57 @@ const SellerController = {
         } catch (error) {
             return res.status(500).json({ error: "Erro ao atualizar vendedor", details: error.message });
         }
+    },
+    async getById(req, res) {
+        try {
+            const { id } = req.params;
+            const seller = await Seller.findByPk(id, {
+                attributes: { exclude: ['senha'] }
+            });
+            if (!seller) {
+                return res.status(404).json({ message: "Vendedor não encontrado" });
+            }
+            return res.json(seller);
+        } catch (error) {
+            return res.status(500).json({ error: "Erro ao buscar vendedor", details: error.message });
+        }
+    },
+    async resetPassword(req, res) {
+        try {
+            const { email } = req.body;
+
+            if (!email) {
+                return res.status(400).json({ error: "E-mail é obrigatório" });
+            }
+
+            const seller = await Seller.findOne({ where: { email } });
+
+            if (!seller) {
+                return res.status(404).json({ error: "Vendedor não encontrado" });
+            }
+
+            const novaSenha = crypto.randomBytes(5).toString("hex");
+            const hashedPassword = await bcrypt.hash(novaSenha, 10);
+
+            await seller.update({ senha: hashedPassword }, { hooks: false });
+
+            await enviarEmail({
+                destinatario: seller.email,
+                assunto: "🔑 Recuperação de Senha - Inazuma Store",
+                mensagem: `Olá, ${seller.nome_vendedor}!<br/><br/>
+                           Sua nova senha temporária é: <strong>${novaSenha}</strong><br/><br/>
+                           Por segurança, altere essa senha após fazer login.`,
+                anexos: []
+            });
+
+            return res.json({ message: "Uma nova senha foi enviada para seu e-mail!" });
+
+        } catch (error) {
+            console.error("Erro ao redefinir senha do vendedor:", error);
+            return res.status(500).json({ error: "Erro ao redefinir senha", details: error.message });
+        }
     }
+
 };
 
 module.exports = SellerController;

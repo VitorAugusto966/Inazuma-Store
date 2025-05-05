@@ -108,7 +108,7 @@ export default function AdminGerenciarPedido() {
                                 <div>
                                     <h4>{item.productName}</h4>
                                     <p>Quantidade: {item.quantity}</p>
-                                    <p>Subtotal: R$ {item.subtotal.toFixed(2)}</p>
+                                    <p>Subtotal: R$ {(6 * item.subtotal).toFixed(2)}</p>
                                 </div>
                             </div>
                         ))}

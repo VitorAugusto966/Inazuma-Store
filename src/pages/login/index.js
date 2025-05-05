@@ -37,7 +37,7 @@ export default function Login() {
 
     setLoading(true);
     try {
-      const userData = await login(sanitizedEmail, sanitizedPassword);
+      const userData = await login(email, sanitizedPassword);
       if (userData) {
         dispatch(setUser(userData));
 

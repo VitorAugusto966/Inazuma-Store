@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AdminHeader from "../../components/adminHeader";
 import { FaTag, FaBoxOpen, FaClipboardList } from "react-icons/fa";
 import "./home.css";
 
 export default function AdminHome() {
+  useEffect(() => {
+    document.title = "Admin Home"
+  })
+
   return (
     <>
       <AdminHeader />

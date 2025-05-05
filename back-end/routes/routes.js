@@ -17,7 +17,7 @@ router.use("/favorites", favoriteRoutes);
 router.use("/vouchers", voucherRoutes);
 router.use("/tracking", orderTracking);
 router.use("/admin", adminRoutes);
-router.use("/seller", sellerRoutes);
+router.use("/sellers", sellerRoutes);
 
 
 module.exports = router;

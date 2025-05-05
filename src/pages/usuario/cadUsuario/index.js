@@ -26,7 +26,7 @@ export default function CadastroUsuario() {
                 const userData = await register("", userName, email, "01/01/2000", password)
                 if (userData) {
                     toast.success(userData.message)
-                    navigate("/", { replace: true });
+                    navigate("/login", { replace: true });
                 } else {
                     toast.warning("Usuario invalido!");
                 }
@@ -87,8 +87,8 @@ export default function CadastroUsuario() {
                 </form>
 
                 <div className="extra-links">
-                    <Link to="/" className="login-link">Faça Login</Link>
-
+                    <Link to="/cadastro-vendedor" className="login-link">Seja vendedor</Link>
+                    <Link to="/login" className="login-link">Faça Login</Link>
                 </div>
             </div>
         </div>

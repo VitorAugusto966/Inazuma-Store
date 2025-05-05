@@ -25,6 +25,7 @@ import AdminHome from "../pages/admin/home";
 import AdminDashboard from "../pages/admin/dashboard";
 import AdminPedidos from "../pages/admin/pedido";
 import AdminGerenciarPedido from "../pages/admin/pedido/gerenciamento";
+import CadastroVendedor from "../pages/vendedor/cadVendedor";
 
 function RoutesApp() {
     return (
@@ -57,6 +58,8 @@ function RoutesApp() {
             <Route path="/admin/pedidos" element={<PrivateAdmin><AdminPedidos/></PrivateAdmin>} />
             <Route path="/admin/pedidos/gerenciar" element={<PrivateAdmin><AdminGerenciarPedido/></PrivateAdmin>} />
 
+            {/* Rotas Vendedor*/}
+            <Route path="/cadastro-vendedor" element={<CadastroVendedor/>}/>
             
             {/* Redirecionamento para páginas não encontradas */}
             <Route path="*" element={<Error />} />
