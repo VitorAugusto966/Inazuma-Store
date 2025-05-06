@@ -26,6 +26,7 @@ import AdminDashboard from "../pages/admin/dashboard";
 import AdminPedidos from "../pages/admin/pedido";
 import AdminGerenciarPedido from "../pages/admin/pedido/gerenciamento";
 import CadastroVendedor from "../pages/vendedor/cadVendedor";
+import VendedorHome from "../pages/vendedor/home";
 
 function RoutesApp() {
     return (
@@ -60,6 +61,7 @@ function RoutesApp() {
 
             {/* Rotas Vendedor*/}
             <Route path="/cadastro-vendedor" element={<CadastroVendedor/>}/>
+            <Route path="/vendedor" element={<VendedorHome/>}/>
             
             {/* Redirecionamento para páginas não encontradas */}
             <Route path="*" element={<Error />} />

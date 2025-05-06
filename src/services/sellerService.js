@@ -21,26 +21,29 @@ export async function loginSeller(email, senha) {
     }
 }
 
-export async function registerSeller(nome_loja, nome_vendedor, email, senha) {
+export async function registerSeller(nome_loja, nome_vendedor, email, senha, cnpj) {
     try {
         const response = await fetch(`${base_URL}sellers/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome_loja, nome_vendedor, email, senha })
+            body: JSON.stringify({ nome_loja, nome_vendedor, email, senha, cnpj })
         });
 
+        const data = await response.json();
+        console.log(data);
         if (!response.ok) {
-            throw new Error("Erro ao registrar vendedor");
+            throw new Error(data?.error || "Erro ao registrar vendedor");
         }
 
-        const data = await response.json();
-        console.log("Vendedor registrado:", data);
-        return data.seller;
+        return data;
+
     } catch (error) {
         console.error("Erro ao registrar vendedor:", error);
-        return null;
+        throw error;
     }
 }
+
+
 
 
 export async function getSellerData(sellerId) {

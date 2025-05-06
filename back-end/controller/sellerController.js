@@ -9,15 +9,26 @@ require("dotenv").config();
 const SellerController = {
     async register(req, res) {
         try {
-            const { nome_loja, nome_vendedor, email, senha } = req.body;
+            let existingSeller;
+            const { nome_loja, nome_vendedor, cnpj, email, senha } = req.body;
 
-            if (!nome_loja || !nome_vendedor || !email || !senha) {
-                return res.status(400).json({ error: "Todos os campos são obrigatórios" });
+            if (!nome_loja || !nome_vendedor || !email || !senha || !cnpj) {
+                return res.status(400).json({ error: "Todos os campos são obrigatórios." });
             }
 
-            const existingSeller = await Seller.findOne({ where: { email } });
+            existingSeller = await Seller.findOne({ where: { email } });
             if (existingSeller) {
-                return res.status(400).json({ error: "E-mail já cadastrado" });
+                return res.status(400).json({ error: "E-mail já cadastrado." });
+            }
+
+            existingSeller = await Seller.findOne({ where: { cnpj } });
+            if (existingSeller) {
+                return res.status(400).json({ error: "CNPJ já cadastrado." });
+            }
+
+            existingSeller = await Seller.findOne({ where: { nome_loja } });
+            if (existingSeller) {
+                return res.status(400).json({ error: "Nome de loja já cadastrado." });
             }
 
             const hashedPassword = await bcrypt.hash(senha, 10);
@@ -26,6 +37,7 @@ const SellerController = {
                 nome_loja,
                 nome_vendedor,
                 email,
+                cnpj,
                 senha: hashedPassword
             });
 

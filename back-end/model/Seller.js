@@ -8,13 +8,19 @@ const Seller = sequelize.define("Seller", {
         autoIncrement: true,
         primaryKey: true
     },
+    cnpj:{
+        type:DataTypes.STRING,
+        allowNull:false,
+        unique:true,
+    },
     nome_loja: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique:true,
     },
     nome_vendedor: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     email: {
         type: DataTypes.STRING,
