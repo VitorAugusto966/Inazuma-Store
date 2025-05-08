@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 * {
   margin: 0;
@@ -26,7 +26,7 @@ body {
 }
 
 .categories {
-  padding: 10px 20px;
+  padding: 30px 20px;
   text-align: center;
   border-radius: 10px;
   margin: 0 auto;
@@ -70,7 +70,6 @@ body {
 
 @media (max-width: 992px) {
   .category-list {
-    justify-content: center;
     gap: 10px;
   }
 
@@ -82,11 +81,6 @@ body {
 }
 
 @media (max-width: 768px) {
-  .category-list {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
   .category-item {
     flex: 1 1 calc(50% - 8px);
     font-size: 13px;
@@ -108,56 +102,64 @@ body {
 
 .highlight-products {
   text-align: center;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .highlight-products h2 {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 32px;
+  font-weight: 700;
   color: white;
+  margin-bottom: 30px;
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
-  padding: 20px;
-  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 0 20px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .product-card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
 
 .product-card img {
   width: 100%;
-  max-height: 180px;
+  height: 200px;
   object-fit: contain;
-  border-radius: 10px;
+  margin-bottom: 16px;
 }
 
 .product-card h4 {
   font-size: 18px;
+  color: #222;
   font-weight: 600;
-  color: #444;
-  margin: 12px 0;
+  margin: 8px 0;
+  text-align: left;
 }
 
-.product-card p {
+.product-price {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 700;
   color: #007bff;
+  margin-bottom: 12px;
+  text-align: left;
 }
 
 .btn-buy,
@@ -166,71 +168,66 @@ body {
   padding: 12px;
   margin-top: 8px;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
+  transition: all 0.3s ease;
 }
 
 .btn-buy {
-  background: #28a745;
+  background: linear-gradient(135deg, #28a745, #218838);
   color: white;
 }
 
 .btn-buy:hover {
-  background: #218838;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #218838, #1e7e34);
 }
 
 .btn-add-cart {
-  background: #ffc107;
-  color: black;
+  background: linear-gradient(135deg, #ffc107, #e0a800);
+  color: #212529;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 .btn-add-cart:hover {
-  background: #e0a800;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #e0a800, #d39e00);
 }
+
 
 .favorite-icon {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  font-size: 22px;
-  background: rgba(255, 255, 255, 0.7);
-  padding: 8px;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .favorite-icon:hover {
   transform: scale(1.1);
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.heart {
-  transition: color 0.3s ease-in-out, transform 0.2s;
-}
-
-.heart.white {
-  color: #bbb;
-}
-
-.heart.red {
-  color: red;
-  text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 1);
 }
 
 .favorite-icon:active {
   transform: scale(1.2);
+}
+
+.heart {
+  font-size: 20px;
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.heart.red {
+  color: red;
+  text-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
 }

@@ -27,6 +27,8 @@ import AdminPedidos from "../pages/admin/pedido";
 import AdminGerenciarPedido from "../pages/admin/pedido/gerenciamento";
 import CadastroVendedor from "../pages/vendedor/cadVendedor";
 import VendedorHome from "../pages/vendedor/home";
+import CadastroProduto from "../pages/vendedor/cadProduto";
+import ViewProdutos from "../pages/vendedor/viewProduto";
 
 function RoutesApp() {
     return (
@@ -62,6 +64,8 @@ function RoutesApp() {
             {/* Rotas Vendedor*/}
             <Route path="/cadastro-vendedor" element={<CadastroVendedor/>}/>
             <Route path="/vendedor" element={<VendedorHome/>}/>
+            <Route path="/vendedor/produto/novo" element={<CadastroProduto/>}/>
+            <Route path="/vendedor/produtos/" element={<ViewProdutos/>}/>
             
             {/* Redirecionamento para páginas não encontradas */}
             <Route path="*" element={<Error />} />

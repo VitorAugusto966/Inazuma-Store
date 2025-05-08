@@ -73,7 +73,6 @@ export default function Favorites() {
         <>
             <Header />
             <section className="favorites-container">
-                <h2>Seus Favoritos</h2>
 
                 {loading ? (
                     <p>Carregando favoritos...</p>

@@ -9,9 +9,9 @@ export default function SellerHeader() {
         <Link to="/seller">Inazuma Vendedor</Link>
       </div>
       <nav className="seller-nav">
-        <Link to="/seller/produtos">Meus Produtos</Link>
-        <Link to="/seller/pedidos">Pedidos</Link>
-        <Link to="/seller/produtos/novo">Novo Produto</Link>
+        <Link to="/vendedor/produtos">Meus Produtos</Link>
+        <Link to="/vendedor/pedidos">Pedidos</Link>
+        <Link to="/vendedor/produto/novo">Novo Produto</Link>
         <Link to="/">Voltar à Loja</Link>
       </nav>
     </header>
