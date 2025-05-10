@@ -9,6 +9,7 @@ const voucherRoutes = require("./voucherRoutes");
 const orderTracking = require("./orderTrackingRoutes");
 const adminRoutes = require("./adminRoutes");
 const sellerRoutes = require("./sellerRoutes");
+const productRoutes = require("./productRoutes");
 
 router.use("/users", userRoutes);
 router.use("/address", addressRoutes);
@@ -18,6 +19,7 @@ router.use("/vouchers", voucherRoutes);
 router.use("/tracking", orderTracking);
 router.use("/admin", adminRoutes);
 router.use("/sellers", sellerRoutes);
+router.use("/products", productRoutes);
 
 
 module.exports = router;
