@@ -54,6 +54,10 @@ export default function Login() {
         else if(userData.role === "admin"){
           navigate("/admin", { replace: true });
         }
+        else if(userData.role === "seller"){
+          navigate("/vendedor", { replace: true });
+        }
+
       } else {
         setAttempts((prev) => prev + 1);
         toast.warning("Credenciais inválidas!");

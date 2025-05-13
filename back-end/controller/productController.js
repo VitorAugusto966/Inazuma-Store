@@ -74,7 +74,7 @@ const ProductController = {
 
     async getALLProductsBySeller(req, res) {
         try {
-            const { sellerId } = req.body;
+            const { sellerId } = req.params;
 
             if (!sellerId) {
                 return res.status(400).json({ error: "ID do vendedor é obrigatório" });

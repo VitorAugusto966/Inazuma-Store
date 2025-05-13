@@ -5,7 +5,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .seller-logo a {
@@ -15,8 +17,22 @@
   text-decoration: none;
 }
 
+.menu-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+}
+
+.seller-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .seller-nav a {
-  margin-left: 1.5rem;
   color: white;
   text-decoration: none;
   font-weight: 500;
@@ -25,4 +41,29 @@
 
 .seller-nav a:hover {
   text-decoration: underline;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .seller-nav {
+    flex-direction: column;
+    width: 100%;
+    display: none;
+    margin-top: 1rem;
+    background-color: #10b981;
+  }
+
+  .seller-nav.open {
+    display: flex;
+  }
+
+  .seller-nav a {
+    padding: 0.5rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
 }

@@ -1,41 +1,38 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import VendedorHeader from "../../components/vendedorHeader";
+import { getProductsBySeller } from "../../../services/sellerService";
 import "./viewProduto.css";
 
-export default function ViewProdutos({ produtos }) {
-  const listaProdutos = produtos || [
-    {
-      id: 1,
-      title: "Tênis Esportivo",
-      description: "Tênis confortável e estiloso para corrida e uso diário.",
-      price: 199.99,
-      discountPercentage: 10,
-      stock: 25,
-      brand: "Nike",
-      category: "Calçados",
-      thumbnail: "https://dummyimage.com/400x400/000/fff&text=Produto",
-    },
-    {
-      id: 2,
-      title: "Camisa Polo",
-      description: "Camisa elegante de algodão premium.",
-      price: 89.9,
-      discountPercentage: 5,
-      stock: 40,
-      brand: "Lacoste",
-      category: "Roupas",
-      thumbnail: "https://dummyimage.com/400x400/444/fff&text=Produto+2",
-    },
-  ];
+export default function ViewProdutos() {
+  const [produtos, setProdutos] = useState([]);
+  const [mensagem, setMensagem] = useState("");
+  const seller = useSelector((state) => state.user.user);
+
+  console.log(seller);
+  useEffect(() => {
+    const fetchProdutos = async () => {
+      try {
+        const data = await getProductsBySeller(seller.id);
+        setProdutos(data);
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+        setMensagem("Erro ao carregar os produtos.");
+      }
+    };
+
+    fetchProdutos();
+  }, [seller]);
 
   return (
     <>
       <VendedorHeader />
       <div className="view-produto-container">
-        <h2>Meus Produtos</h2>
+        {mensagem && <p className="mensagem">{mensagem}</p>}
+
         <div className="produto-grid">
-          {listaProdutos.map((produto) => (
+          {produtos.map((produto) => (
             <div key={produto.id} className="produto-card">
               <img src={produto.thumbnail} alt={produto.title} />
               <h3>{produto.title}</h3>

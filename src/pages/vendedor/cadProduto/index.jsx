@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import VendedorHeader from '../../components/vendedorHeader';
 import './cadProduto.css';
+import { createProduct } from '../../../services/sellerService';
 
 export default function CadastroProduto() {
   const [produto, setProduto] = useState({
@@ -14,6 +15,8 @@ export default function CadastroProduto() {
     thumbnail: '',
     images: [''],
   });
+
+  const [mensagem, setMensagem] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,18 +33,45 @@ export default function CadastroProduto() {
     setProduto({ ...produto, images: [...produto.images, ''] });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Produto cadastrado:', produto);
+    let seller = { id: 1 };
+
+    const produtoComVendedor = {
+      ...produto,
+      price: parseFloat(produto.price),
+      discountPercentage: parseFloat(produto.discountPercentage || 0),
+      stock: parseInt(produto.stock, 10),
+      sellerId: seller.id,
+    };
+
+    try {
+      await createProduct(produtoComVendedor);
+      setMensagem('✅ Produto cadastrado com sucesso!');
+      setProduto({
+        title: '',
+        description: '',
+        price: '',
+        discountPercentage: '',
+        stock: '',
+        brand: '',
+        category: '',
+        thumbnail: '',
+        images: [''],
+      });
+    } catch (error) {
+      console.error('Erro ao cadastrar produto:', error);
+      setMensagem('❌ Erro ao cadastrar produto.');
+    }
   };
 
   return (
     <>
       <VendedorHeader />
-      <div className="cadastro-container">
-        <h2>Cadastro de Produto</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group form-group-full">
+      <div className="produto-cadastro-container">
+        <h2 className="produto-title">Cadastro de Produto</h2>
+        <form onSubmit={handleSubmit} className="produto-form">
+          <div className="produto-form-group produto-form-group-full">
             <label htmlFor="title">Nome do Produto:</label>
             <input
               type="text"
@@ -53,7 +83,7 @@ export default function CadastroProduto() {
             />
           </div>
 
-          <div className="form-group form-group-full">
+          <div className="produto-form-group produto-form-group-full">
             <label htmlFor="description">Descrição:</label>
             <textarea
               id="description"
@@ -64,30 +94,32 @@ export default function CadastroProduto() {
             />
           </div>
 
-          <div className="form-group">
+          <div className="produto-form-group">
             <label htmlFor="price">Preço (R$):</label>
             <input
               type="number"
               id="price"
               name="price"
+              step="0.01"
               value={produto.price}
               onChange={handleChange}
               required
             />
           </div>
 
-          <div className="form-group">
+          <div className="produto-form-group">
             <label htmlFor="discountPercentage">Desconto (%):</label>
             <input
               type="number"
               id="discountPercentage"
               name="discountPercentage"
+              step="0.01"
               value={produto.discountPercentage}
               onChange={handleChange}
             />
           </div>
 
-          <div className="form-group">
+          <div className="produto-form-group">
             <label htmlFor="stock">Estoque:</label>
             <input
               type="number"
@@ -99,7 +131,7 @@ export default function CadastroProduto() {
             />
           </div>
 
-          <div className="form-group">
+          <div className="produto-form-group">
             <label htmlFor="brand">Marca:</label>
             <input
               type="text"
@@ -111,7 +143,7 @@ export default function CadastroProduto() {
             />
           </div>
 
-          <div className="form-group">
+          <div className="produto-form-group">
             <label htmlFor="category">Categoria:</label>
             <input
               type="text"
@@ -123,7 +155,7 @@ export default function CadastroProduto() {
             />
           </div>
 
-          <div className="form-group form-group-full">
+          <div className="produto-form-group produto-form-group-full">
             <label htmlFor="thumbnail">Imagem principal (URL):</label>
             <input
               type="text"
@@ -134,14 +166,13 @@ export default function CadastroProduto() {
             />
           </div>
 
-          <div className="form-group form-group-full">
+          <div className="produto-form-group produto-form-group-full">
             <label>Galeria de Imagens (URLs):</label>
-            <div className="gallery-images">
+            <div className="produto-gallery-images">
               {produto.images.map((img, idx) => (
                 <input
                   key={idx}
                   type="text"
-                  id={`image-${idx}`}
                   value={img}
                   onChange={(e) => handleImageChange(idx, e.target.value)}
                   placeholder={`Imagem ${idx + 1}`}
@@ -151,15 +182,17 @@ export default function CadastroProduto() {
             <button
               type="button"
               onClick={addImageField}
-              className="add-image-button"
+              className="produto-add-image-button"
             >
               + Adicionar imagem
             </button>
           </div>
 
-          <button type="submit" className="submit-button">
+          <button type="submit" className="produto-submit-button">
             Cadastrar Produto
           </button>
+
+          {mensagem && <p className="produto-mensagem">{mensagem}</p>}
         </form>
       </div>
     </>

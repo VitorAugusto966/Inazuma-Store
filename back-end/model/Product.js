@@ -57,9 +57,15 @@ const Produto = sequelize.define("Product", {
     images: {
         type: DataTypes.JSON,
         allowNull: true
-    }
+    },
 
-})
+
+},
+    {
+        tableName: "products",
+        timestamps: true,
+    }
+)
 
 Produto.belongsTo(Seller, { foreignKey: "sellerId" });
 
