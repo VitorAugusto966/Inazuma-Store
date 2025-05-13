@@ -1,7 +1,5 @@
 const base_URL = "http://localhost:3001/api/";
 
-// =================== SELLERS ===================
-
 export async function loginSeller(email, senha) {
     try {
         const response = await fetch(`${base_URL}sellers/login`, {
@@ -101,8 +99,6 @@ export async function resetSellerPassword(email) {
         return null;
     }
 }
-
-// =================== PRODUCTS ===================
 
 export async function getAllProducts() {
     try {

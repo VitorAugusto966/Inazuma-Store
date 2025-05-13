@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import VendedorHeader from '../../components/vendedorHeader';
 import './cadProduto.css';
 import { createProduct } from '../../../services/sellerService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CadastroProduto() {
   const [produto, setProduto] = useState({
@@ -15,8 +17,6 @@ export default function CadastroProduto() {
     thumbnail: '',
     images: [''],
   });
-
-  const [mensagem, setMensagem] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +47,7 @@ export default function CadastroProduto() {
 
     try {
       await createProduct(produtoComVendedor);
-      setMensagem('✅ Produto cadastrado com sucesso!');
+      toast.success('Produto cadastrado com sucesso!');
       setProduto({
         title: '',
         description: '',
@@ -61,7 +61,7 @@ export default function CadastroProduto() {
       });
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
-      setMensagem('❌ Erro ao cadastrar produto.');
+      toast.error('Erro ao cadastrar produto.');
     }
   };
 
@@ -191,10 +191,9 @@ export default function CadastroProduto() {
           <button type="submit" className="produto-submit-button">
             Cadastrar Produto
           </button>
-
-          {mensagem && <p className="produto-mensagem">{mensagem}</p>}
         </form>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }
