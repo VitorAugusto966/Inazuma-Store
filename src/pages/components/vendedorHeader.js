@@ -12,7 +12,7 @@ export default function SellerHeader() {
   return (
     <header className="seller-header">
       <div className="seller-logo">
-        <Link to="/seller">Inazuma Vendedor</Link>
+        <Link to="/vendedor">Inazuma Vendedor</Link>
       </div>
 
       <button className="menu-toggle" onClick={toggleMenu}>

@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Private from "./Private";
 import PrivateAdmin from "./PrivateAdmin";
-
 import Login from "../pages/login";
 import CadastroUsuario from "../pages/usuario/cadUsuario";
 import Home from "../pages/home";
@@ -27,8 +26,10 @@ import AdminPedidos from "../pages/admin/pedido";
 import AdminGerenciarPedido from "../pages/admin/pedido/gerenciamento";
 import CadastroVendedor from "../pages/vendedor/cadVendedor";
 import VendedorHome from "../pages/vendedor/home";
-import CadastroProduto from "../pages/vendedor/cadProduto";
-import ViewProdutos from "../pages/vendedor/viewProduto";
+import CadastroProduto from "../pages/vendedor/produto/cadProduto";
+import ViewProdutos from "../pages/vendedor/produto/viewProduto";
+import ProdutoVendedorDetalhe from "../pages/vendedor/produto/produto-detalhe";
+import EditarProdutoVendedor from '../pages/vendedor/produto/editProduto'
 
 function RoutesApp() {
     return (
@@ -56,17 +57,19 @@ function RoutesApp() {
             {/* Rotas ADMIN */}
             <Route path="/admin" element={<PrivateAdmin><AdminHome /></PrivateAdmin>} />
             <Route path="/admin/usuarios" element={<PrivateAdmin><AdminUsuarios /></PrivateAdmin>} />
-            <Route path="/admin/cupons" element={<PrivateAdmin><AdminCupons  /></PrivateAdmin>} />
-            <Route path="/admin/dashboard" element={<PrivateAdmin><AdminDashboard/></PrivateAdmin>} />
-            <Route path="/admin/pedidos" element={<PrivateAdmin><AdminPedidos/></PrivateAdmin>} />
-            <Route path="/admin/pedidos/gerenciar" element={<PrivateAdmin><AdminGerenciarPedido/></PrivateAdmin>} />
+            <Route path="/admin/cupons" element={<PrivateAdmin><AdminCupons /></PrivateAdmin>} />
+            <Route path="/admin/dashboard" element={<PrivateAdmin><AdminDashboard /></PrivateAdmin>} />
+            <Route path="/admin/pedidos" element={<PrivateAdmin><AdminPedidos /></PrivateAdmin>} />
+            <Route path="/admin/pedidos/gerenciar" element={<PrivateAdmin><AdminGerenciarPedido /></PrivateAdmin>} />
 
             {/* Rotas Vendedor*/}
-            <Route path="/cadastro-vendedor" element={<CadastroVendedor/>}/>
-            <Route path="/vendedor" element={<VendedorHome/>}/>
-            <Route path="/vendedor/produto/novo" element={<CadastroProduto/>}/>
-            <Route path="/vendedor/produtos/" element={<ViewProdutos/>}/>
-            
+            <Route path="/cadastro-vendedor" element={<CadastroVendedor />} />
+            <Route path="/vendedor" element={<VendedorHome />} />
+            <Route path="/vendedor/produto/novo" element={<CadastroProduto />} />
+            <Route path="/vendedor/produtos/" element={<ViewProdutos />} />
+            <Route path="/vendedor/produto-detalhe" element={<ProdutoVendedorDetalhe />} />
+            <Route path="/vendedor/produto/editar" element={<EditarProdutoVendedor />} />
+
             {/* Redirecionamento para páginas não encontradas */}
             <Route path="*" element={<Error />} />
         </Routes>

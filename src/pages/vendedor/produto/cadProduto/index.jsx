@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import VendedorHeader from '../../components/vendedorHeader';
+import VendedorHeader from '../../../components/vendedorHeader';
 import './cadProduto.css';
-import { createProduct } from '../../../services/sellerService';
+import { createProduct } from '../../../../services/sellerService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
