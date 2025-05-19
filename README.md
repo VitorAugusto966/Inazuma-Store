@@ -84,6 +84,22 @@ O painel administrativo oferece controle total da loja, acessível apenas por us
 
 ---
 
+## 🧑‍💻 Painel do Vendedor
+
+O painel do vendedor permite que cada vendedor gerencie seus próprios produtos de forma eficiente e autônoma.
+
+### Funcionalidades:
+
+- 📦 **Listagem de Produtos Cadastrados**
+- ➕ **Cadastro de Novo Produto**
+- ✏️ **Edição de Produto Existente**
+- ❌ **Remoção de Produto**
+- 📈 **Visualização de Detalhes do Produto** com layout moderno
+- 🛒 **Integração com o sistema de pedidos** (em desenvolvimento)
+- 🔍 **Interface otimizada e responsiva**
+
+---
+
 ## 🚀 Como Rodar o Projeto
 
 ### **1️⃣ Clonar o Repositório**
@@ -128,4 +144,3 @@ node server.js
 
 ## Licença
 Este projeto é open-source e está sob a licença [MIT](LICENSE).
-
