@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
-const User = require("./User"); 
+const User = require("./User");
+const Seller = require("./Seller");
 
 const Order = sequelize.define(
   "Order",
@@ -11,6 +12,10 @@ const Order = sequelize.define(
       autoIncrement: true,
     },
     userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    sellerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -60,5 +65,6 @@ const Order = sequelize.define(
 );
 
 Order.belongsTo(User, { foreignKey: "userId", as: "usuario" });
+Order.belongsTo(Seller, { foreignKey: "sellerId", as: "vendedor" }); 
 
 module.exports = Order;

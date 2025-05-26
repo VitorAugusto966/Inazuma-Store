@@ -1,0 +1,125 @@
+.seller-container {
+  max-width: 1300px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.seller-container h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #111827;
+}
+
+.seller-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f9fafb;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+}
+
+.seller-table thead {
+  background-color: #f1f5f9;
+}
+
+.seller-table th,
+.seller-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.seller-table th {
+  color: #334155;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.seller-table td {
+  color: #1f2937;
+}
+
+.seller-table td:nth-child(4) {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-label {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.status-pendente {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.status-confirmado {
+  background-color: #d1fae5;
+  color: #047857;
+}
+
+.status-cancelado {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-enviado {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.mensagem-pedidos {
+  font-size: 1.1rem;
+  color: #6b7280;
+  text-align: center;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .seller-table thead {
+    display: none;
+  }
+
+  .seller-table,
+  .seller-table tbody,
+  .seller-table tr,
+  .seller-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .seller-table tr {
+    margin-bottom: 1.5rem;
+    background-color: #f9fafb;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .seller-table td {
+    padding: 0.75rem;
+    text-align: right;
+    position: relative;
+  }
+
+  .seller-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-align: left;
+  }
+}

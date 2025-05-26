@@ -187,3 +187,20 @@ export async function deleteProduct(productId) {
         return false;
     }
 }
+
+export async function getPedidosSeller(token) {
+    const response = await fetch(`${base_URL}sellers/pedidos`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error("Erro ao buscar pedidos do vendedor.");
+    }
+
+    const data = await response.json();
+    return data;
+}

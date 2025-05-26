@@ -11,12 +11,13 @@ const PRODUCT_API_URL = "https://dummyjson.com/products";
 const OrderController = {
     async createOrder(req, res) {
         try {
-            const { userId, shippingAddress, items, totalAmount, paymentStatus, email } = req.body;
-            if (!userId || !items || !Array.isArray(items) || totalAmount == null || !email) {
+            const { userId, sellerId, shippingAddress, items, totalAmount, paymentStatus, email } = req.body;
+            if (!userId || !sellerId || !items || !Array.isArray(items) || totalAmount == null || !email) {
                 return res.status(400).json({ error: "Dados inválidos" });
             }
 
-            const order = await Order.create({ userId, shippingAddress, totalAmount, paymentStatus });
+            const order = await Order.create({ userId, sellerId, shippingAddress, totalAmount, paymentStatus });
+
 
             let orderItems = [];
             for (const item of items) {
@@ -144,6 +145,7 @@ async function generateOrderPDF(order, orderItems, filePath) {
         doc.moveDown();
         doc.fontSize(12).fillColor("#000").text(`Pedido Nº: ${order.id}`);
         doc.text(`Cliente ID: ${order.userId}`);
+        doc.text(`Vendedor ID: ${order.sellerId}`);
         doc.text(`Endereço de entrega: ${order.shippingAddress}`);
         doc.text(`Status do pagamento: ${order.paymentStatus}`);
         doc.text(`Data: ${new Date().toLocaleDateString("pt-BR")}`);

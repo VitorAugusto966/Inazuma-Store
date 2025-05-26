@@ -30,6 +30,7 @@ import CadastroProduto from "../pages/vendedor/produto/cadProduto";
 import ViewProdutos from "../pages/vendedor/produto/viewProduto";
 import ProdutoVendedorDetalhe from "../pages/vendedor/produto/produto-detalhe";
 import EditarProdutoVendedor from '../pages/vendedor/produto/editProduto'
+import VendedorPedidos from "../pages/vendedor/pedido/viewPedidos";
 
 function RoutesApp() {
     return (
@@ -69,6 +70,7 @@ function RoutesApp() {
             <Route path="/vendedor/produtos/" element={<ViewProdutos />} />
             <Route path="/vendedor/produto-detalhe" element={<ProdutoVendedorDetalhe />} />
             <Route path="/vendedor/produto/editar" element={<EditarProdutoVendedor />} />
+            <Route path="/vendedor/pedidos" element={<VendedorPedidos />} />
 
             {/* Redirecionamento para páginas não encontradas */}
             <Route path="*" element={<Error />} />

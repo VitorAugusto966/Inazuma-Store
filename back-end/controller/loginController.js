@@ -17,11 +17,10 @@ const LoginController = {
             let user = await User.findOne({ where: { email } });
 
             if (!user) {
-                user = await Seller.findOne({ where: { email }});
+                user = await Seller.findOne({ where: { email } });
                 seller = 1;
-                //console.log(user);
             }
-            
+
             if (!user) {
                 return res.status(401).json({ message: "Credenciais inválidas" });
             }
@@ -32,7 +31,7 @@ const LoginController = {
             }
 
             const token = jwt.sign(
-                { id: user.id, role: user.role },
+                { id: user.id, type: seller ? 'seller' : user.role || null },
                 process.env.JWT_SECRET,
                 { expiresIn: "1h" }
             );

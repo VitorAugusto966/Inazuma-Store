@@ -1,36 +1,36 @@
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const User = require("../model/User");
+const Seller = require("../model/Seller");
 
-module.exports = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+module.exports = async (req, res, next) => {
+    const authHeader = req.headers.authorization;
 
-  if (!authHeader) {
-    return res.status(401).json({ message: "Token necessário!" });
-  }
-
-  const tokenParts = authHeader.split(" ");
-  if (tokenParts.length !== 2 || tokenParts[0] !== "Bearer") {
-    return res.status(401).json({ message: "Formato de token inválido!" });
-  }
-
-  const token = tokenParts[1];
-
-  if (!process.env.JWT_SECRET) {
-    console.error("Erro: JWT_SECRET não definido no ambiente!");
-    return res.status(500).json({ message: "Erro interno no servidor" });
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.id;
-    next();
-  } catch (error) {
-    if (error.name === "TokenExpiredError") {
-      return res.status(401).json({ message: "Token expirado!" });
+    if (!authHeader) {
+        return res.status(401).json({ message: "Token não fornecido" });
     }
-    if (error.name === "JsonWebTokenError") {
-      return res.status(401).json({ message: "Token inválido!" });
+
+    const token = authHeader.split(" ")[1];
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const { id, type } = decoded;
+
+        let user;
+
+        if (type === "user" || type == "admin") {
+            user = await User.findByPk(id);
+        } else if (type === "seller") {
+            user = await Seller.findByPk(id);
+        }
+
+        if (!user) {
+            return res.status(404).json({ message: `${type === 'seller' ? 'Vendedor' : 'Usuário'} não encontrado` });
+        }
+
+        req.userId = user.id;
+        req.userType = type;
+        next();
+    } catch (error) {
+        return res.status(401).json({ message: "Token inválido" });
     }
-    return res.status(500).json({ message: "Erro ao validar token!" });
-  }
 };

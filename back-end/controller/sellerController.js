@@ -1,6 +1,9 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Seller = require("../model/Seller");
+const Order = require("../model/Order");
+const User = require("../model/User");
+const Product = require("../model/Product");
 const crypto = require("crypto");
 const { enviarEmail } = require("../controller/emailController");
 
@@ -153,6 +156,26 @@ const SellerController = {
         } catch (error) {
             console.error("Erro ao redefinir senha do vendedor:", error);
             return res.status(500).json({ error: "Erro ao redefinir senha", details: error.message });
+        }
+    },
+    async getPedidosBySeller(req, res) {
+        try {
+            const sellerId = req.userId;
+
+            const pedidos = await Order.findAll({
+                where: { sellerId },
+                include: [
+                    { model: Seller, as: "vendedor" },
+                ]
+            });
+
+            return res.json(pedidos);
+        } catch (error) {
+            console.error("Erro ao buscar pedidos do vendedor:", error);
+            return res.status(500).json({
+                error: "Erro ao buscar pedidos do vendedor",
+                details: error.message
+            });
         }
     }
 
