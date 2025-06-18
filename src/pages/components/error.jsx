@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Header from "../components/header";
+import Header from "./header";
 import { FaExclamationTriangle } from "react-icons/fa";
 import "./error.css";
 

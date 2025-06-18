@@ -1,8 +1,8 @@
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
-import RoutesApp from "./routes/";
+import RoutesApp from "./routes";
 import { Provider } from "react-redux";
-import { Store, persistor } from "../src/redux/store";
+import { Store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
