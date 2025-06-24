@@ -19,12 +19,12 @@ export default function CadastroVendedor() {
   }, []);
 
   function validarCNPJ(cnpj) {
-    cnpj = cnpj.replace(/\D/g, "");
-    if (cnpj.length !== 14 || /^(\d)\1+$/.test(cnpj)) return false;
+    const cleanCNPJ = cnpj.replace(/\D/g, "");
+    if (cleanCNPJ.length !== 14 || /^(\d)\1+$/.test(cleanCNPJ)) return false;
 
-    let tamanho = cnpj.length - 2;
-    let numeros = cnpj.substring(0, tamanho);
-    let digitos = cnpj.substring(tamanho);
+    let tamanho = cleanCNPJ.length - 2;
+    let numeros = cleanCNPJ.substring(0, tamanho);
+    let digitos = cleanCNPJ.substring(tamanho);
     let soma = 0;
     let pos = tamanho - 7;
 
@@ -37,7 +37,7 @@ export default function CadastroVendedor() {
     if (resultado !== +digitos.charAt(0)) return false;
 
     tamanho++;
-    numeros = cnpj.substring(0, tamanho);
+    numeros = cleanCNPJ.substring(0, tamanho);
     soma = 0;
     pos = tamanho - 7;
     for (let i = tamanho; i >= 1; i--) {
@@ -49,8 +49,8 @@ export default function CadastroVendedor() {
     return resultado === +digitos.charAt(1);
   }
 
-  function formatCNPJ(value) {
-    return value
+  function formatarCNPJ(valor) {
+    return valor
       .replace(/\D/g, "")
       .replace(/^(\d{2})(\d)/, "$1.$2")
       .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
@@ -59,32 +59,37 @@ export default function CadastroVendedor() {
       .slice(0, 18);
   }
 
+  function camposInvalidos() {
+    return !nomeLoja.trim() || !nomeVendedor.trim() || !email.trim() || !senha.trim() || !cnpj.trim();
+  }
+
   async function handleRegister(e) {
     e.preventDefault();
+
+    if (camposInvalidos()) {
+      toast.warn("Preencha todos os campos!");
+      return;
+    }
 
     if (!validarCNPJ(cnpj)) {
       toast.warn("CNPJ inválido");
       return;
     }
 
-    if (!nomeLoja || !nomeVendedor || !email || !senha || !cnpj) {
-      toast.warn("Preencha todos os campos!");
-      return;
-    }
-
     setLoading(true);
     try {
       const response = await registerSeller(
-        nomeLoja,
-        nomeVendedor,
-        email,
-        senha,
-        cnpj
+        nomeLoja.trim(),
+        nomeVendedor.trim(),
+        email.trim().toLowerCase(),
+        senha.trim(),
+        cnpj.trim()
       );
-      toast.success(response.message);
+
+      toast.success(response.message || "Cadastro realizado com sucesso!");
       navigate("/login", { replace: true });
     } catch (error) {
-      toast.error(error.message || "Erro ao cadastrar vendedor");
+      toast.error(error?.response?.data?.message || "Erro ao cadastrar vendedor.");
     } finally {
       setLoading(false);
     }
@@ -122,10 +127,11 @@ export default function CadastroVendedor() {
             <div className="vendedor-group">
               <label htmlFor="cnpj">CNPJ da Loja</label>
               <input
+                id="cnpj"
                 type="text"
-                value={cnpj}
-                onChange={(e) => setCNPJ(formatCNPJ(e.target.value))}
                 placeholder="00.000.000/0000-00"
+                value={cnpj}
+                onChange={(e) => setCNPJ(formatarCNPJ(e.target.value))}
               />
             </div>
           </div>
@@ -152,12 +158,14 @@ export default function CadastroVendedor() {
               />
             </div>
           </div>
+
           <div className="vendedor-btn-wrapper">
             <button type="submit" className="vendedor-btn" disabled={loading}>
               {loading ? "Carregando..." : "Cadastrar"}
             </button>
           </div>
         </form>
+
         <div className="vendedor-links">
           <Link to="/login" className="vendedor-login-link">
             Já tem uma conta? Faça login
