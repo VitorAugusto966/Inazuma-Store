@@ -1,69 +1,65 @@
-import React, { useState } from 'react';
-import VendedorHeader from '../../../components/vendedorHeader';
-import './cadProduto.css';
-import { createProduct } from '../../../../services/sellerService';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import VendedorHeader from "../../../components/vendedorHeader";
+import "./cadProduto.css";
+import { createProduct } from "../../../../services/sellerService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CadastroProduto() {
-  const [produto, setProduto] = useState({
-    title: '',
-    description: '',
-    price: '',
-    discountPercentage: '',
-    stock: '',
-    brand: '',
-    category: '',
-    thumbnail: '',
-    images: [''],
-  });
+  const [produto, setProduto] = useState(getProdutoInicial());
 
-  const handleChange = (e) => {
+  function getProdutoInicial() {
+    return {
+      title: "",
+      description: "",
+      price: "",
+      discountPercentage: "",
+      stock: "",
+      brand: "",
+      category: "",
+      thumbnail: "",
+      images: [""],
+    };
+  }
+
+  function handleChange(e) {
     const { name, value } = e.target;
-    setProduto({ ...produto, [name]: value });
-  };
+    setProduto((prev) => ({ ...prev, [name]: value }));
+  }
 
-  const handleImageChange = (index, value) => {
-    const updatedImages = [...produto.images];
-    updatedImages[index] = value;
-    setProduto({ ...produto, images: updatedImages });
-  };
+  function handleImageChange(index, value) {
+    const novasImagens = [...produto.images];
+    novasImagens[index] = value;
+    setProduto((prev) => ({ ...prev, images: novasImagens }));
+  }
 
-  const addImageField = () => {
-    setProduto({ ...produto, images: [...produto.images, ''] });
-  };
+  function adicionarCampoImagem() {
+    setProduto((prev) => ({ ...prev, images: [...prev.images, ""] }));
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    let seller = { id: 1 };
-
-    const produtoComVendedor = {
+  function formatarProdutoParaEnvio() {
+    return {
       ...produto,
       price: parseFloat(produto.price),
       discountPercentage: parseFloat(produto.discountPercentage || 0),
       stock: parseInt(produto.stock, 10),
-      sellerId: seller.id,
+      sellerId: 1,
     };
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const produtoFormatado = formatarProdutoParaEnvio();
 
     try {
-      await createProduct(produtoComVendedor);
-      toast.success('Produto cadastrado com sucesso!');
-      setProduto({
-        title: '',
-        description: '',
-        price: '',
-        discountPercentage: '',
-        stock: '',
-        brand: '',
-        category: '',
-        thumbnail: '',
-        images: [''],
-      });
+      await createProduct(produtoFormatado);
+      toast.success("Produto cadastrado com sucesso!");
+      setProduto(getProdutoInicial());
     } catch (error) {
-      console.error('Erro ao cadastrar produto:', error);
-      toast.error('Erro ao cadastrar produto.');
+      console.error("Erro ao cadastrar produto:", error);
+      toast.error("Erro ao cadastrar produto.");
     }
-  };
+  }
 
   return (
     <>
@@ -71,100 +67,70 @@ export default function CadastroProduto() {
       <div className="produto-cadastro-container">
         <h2 className="produto-title">Cadastro de Produto</h2>
         <form onSubmit={handleSubmit} className="produto-form">
-          <div className="produto-form-group produto-form-group-full">
-            <label htmlFor="title">Nome do Produto:</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={produto.title}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="produto-form-group produto-form-group-full">
-            <label htmlFor="description">Descrição:</label>
-            <textarea
-              id="description"
-              name="description"
-              value={produto.description}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="produto-form-group">
-            <label htmlFor="price">Preço (R$):</label>
-            <input
-              type="number"
-              id="price"
-              name="price"
-              step="0.01"
-              value={produto.price}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="produto-form-group">
-            <label htmlFor="discountPercentage">Desconto (%):</label>
-            <input
-              type="number"
-              id="discountPercentage"
-              name="discountPercentage"
-              step="0.01"
-              value={produto.discountPercentage}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="produto-form-group">
-            <label htmlFor="stock">Estoque:</label>
-            <input
-              type="number"
-              id="stock"
-              name="stock"
-              value={produto.stock}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="produto-form-group">
-            <label htmlFor="brand">Marca:</label>
-            <input
-              type="text"
-              id="brand"
-              name="brand"
-              value={produto.brand}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="produto-form-group">
-            <label htmlFor="category">Categoria:</label>
-            <input
-              type="text"
-              id="category"
-              name="category"
-              value={produto.category}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="produto-form-group produto-form-group-full">
-            <label htmlFor="thumbnail">Imagem principal (URL):</label>
-            <input
-              type="text"
-              id="thumbnail"
-              name="thumbnail"
-              value={produto.thumbnail}
-              onChange={handleChange}
-            />
-          </div>
+          <FormGroup
+            label="Nome do Produto"
+            id="title"
+            type="text"
+            value={produto.title}
+            onChange={handleChange}
+            required
+          />
+          <FormGroup
+            label="Descrição"
+            id="description"
+            type="textarea"
+            value={produto.description}
+            onChange={handleChange}
+            required
+          />
+          <FormGroup
+            label="Preço (R$)"
+            id="price"
+            type="number"
+            step="0.01"
+            value={produto.price}
+            onChange={handleChange}
+            required
+          />
+          <FormGroup
+            label="Desconto (%)"
+            id="discountPercentage"
+            type="number"
+            step="0.01"
+            value={produto.discountPercentage}
+            onChange={handleChange}
+          />
+          <FormGroup
+            label="Estoque"
+            id="stock"
+            type="number"
+            value={produto.stock}
+            onChange={handleChange}
+            required
+          />
+          <FormGroup
+            label="Marca"
+            id="brand"
+            type="text"
+            value={produto.brand}
+            onChange={handleChange}
+            required
+          />
+          <FormGroup
+            label="Categoria"
+            id="category"
+            type="text"
+            value={produto.category}
+            onChange={handleChange}
+            required
+          />
+          <FormGroup
+            label="Imagem principal (URL)"
+            id="thumbnail"
+            type="text"
+            value={produto.thumbnail}
+            onChange={handleChange}
+          />
 
           <div className="produto-form-group produto-form-group-full">
             <label>Galeria de Imagens (URLs):</label>
@@ -181,7 +147,7 @@ export default function CadastroProduto() {
             </div>
             <button
               type="button"
-              onClick={addImageField}
+              onClick={adicionarCampoImagem}
               className="produto-add-image-button"
             >
               + Adicionar imagem
@@ -195,5 +161,38 @@ export default function CadastroProduto() {
       </div>
       <ToastContainer position="top-right" autoClose={3000} />
     </>
+  );
+}
+
+function FormGroup({ label, id, type, value, onChange, required, step }) {
+  return (
+    <div
+      className={`produto-form-group ${
+        type === "textarea" || id === "thumbnail"
+          ? "produto-form-group-full"
+          : ""
+      }`}
+    >
+      <label htmlFor={id}>{label}:</label>
+      {type === "textarea" ? (
+        <textarea
+          id={id}
+          name={id}
+          value={value}
+          onChange={onChange}
+          required={required}
+        />
+      ) : (
+        <input
+          type={type}
+          id={id}
+          name={id}
+          value={value}
+          step={step}
+          onChange={onChange}
+          required={required}
+        />
+      )}
+    </div>
   );
 }

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import Modal from "react-modal";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import VendedorHeader from "../../../components/vendedorHeader";
 import {
   getProductsBySeller,
@@ -18,35 +18,38 @@ export default function ViewProdutos() {
   const [produtos, setProdutos] = useState([]);
   const [produtoSelecionado, setProdutoSelecionado] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const seller = useSelector((state) => state.user.user);
+
+  const { id: sellerId } = useSelector((state) => state.user.user);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProdutos = async () => {
+    async function carregarProdutos() {
       try {
-        const data = await getProductsBySeller(seller.id);
-        setProdutos(data);
+        const lista = await getProductsBySeller(sellerId);
+        setProdutos(lista);
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
         toast.error("Erro ao carregar os produtos.");
       }
-    };
+    }
 
-    fetchProdutos();
-  }, [seller]);
+    if (sellerId) carregarProdutos();
+  }, [sellerId]);
 
-  const openModal = (produto) => {
+  const abrirModal = (produto) => {
     setProdutoSelecionado(produto);
     setModalIsOpen(true);
   };
 
-  const closeModal = () => {
+  const fecharModal = () => {
     setModalIsOpen(false);
     setProdutoSelecionado(null);
   };
 
-  const confirmarRemocao = async () => {
-    if (produtoSelecionado) {
+  const removerProduto = async () => {
+    if (!produtoSelecionado) return;
+
+    try {
       const sucesso = await deleteProduct(produtoSelecionado.id);
       if (sucesso) {
         toast.success("Produto removido com sucesso!");
@@ -56,13 +59,25 @@ export default function ViewProdutos() {
       } else {
         toast.error("Erro ao remover o produto.");
       }
-      closeModal();
+    } catch {
+      toast.error("Erro inesperado ao remover produto.");
+    } finally {
+      fecharModal();
     }
   };
+
+  const redirecionarParaDetalhe = (produto) =>
+    navigate("/vendedor/produto-detalhe", { state: { produto } });
+
+  const redirecionarParaEdicao = (produto) =>
+    navigate("/vendedor/produto/editar", { state: { produto } });
+
+  const redirecionarParaCadastro = () => navigate("/vendedor/produto/novo");
 
   return (
     <>
       <VendedorHeader />
+
       <div className="view-produto-container">
         <div className="produto-grid">
           {produtos.map((produto) => (
@@ -81,28 +96,23 @@ export default function ViewProdutos() {
               <p>
                 <strong>Marca:</strong> {produto.brand}
               </p>
+
               <div className="produto-actions">
                 <button
                   className="btn-ver"
-                  onClick={() =>
-                    navigate("/vendedor/produto-detalhe", {
-                      state: { produto },
-                    })
-                  }
+                  onClick={() => redirecionarParaDetalhe(produto)}
                 >
                   <FaEye /> Ver
                 </button>
                 <button
                   className="btn-editar"
-                  onClick={() =>
-                    navigate("/vendedor/produto/editar", { state: { produto } })
-                  }
+                  onClick={() => redirecionarParaEdicao(produto)}
                 >
                   <FaEdit /> Editar
                 </button>
                 <button
                   className="btn-remover"
-                  onClick={() => openModal(produto)}
+                  onClick={() => abrirModal(produto)}
                 >
                   <FaTrash /> Remover
                 </button>
@@ -110,6 +120,7 @@ export default function ViewProdutos() {
             </div>
           ))}
         </div>
+
         {produtos.length === 0 && (
           <div className="no-produtos">
             <svg
@@ -128,7 +139,7 @@ export default function ViewProdutos() {
             <p>Adicione agora para começar a vender!</p>
             <button
               className="btn-adicionar"
-              onClick={() => navigate("/vendedor/produto/novo")}
+              onClick={redirecionarParaCadastro}
             >
               Cadastrar Produto
             </button>
@@ -138,7 +149,7 @@ export default function ViewProdutos() {
 
       <Modal
         isOpen={modalIsOpen}
-        onRequestClose={closeModal}
+        onRequestClose={fecharModal}
         contentLabel="Confirmação de Remoção"
         className="modal-content"
         overlayClassName="modal-overlay"
@@ -149,10 +160,10 @@ export default function ViewProdutos() {
           <strong>{produtoSelecionado?.title}</strong>?
         </p>
         <div className="modal-buttons">
-          <button className="btn-confirmar" onClick={confirmarRemocao}>
+          <button className="btn-confirmar" onClick={removerProduto}>
             Sim, excluir
           </button>
-          <button className="btn-cancelar" onClick={closeModal}>
+          <button className="btn-cancelar" onClick={fecharModal}>
             Cancelar
           </button>
         </div>

@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import VendedorHeader from "../../../components/vendedorHeader";
 import { updateProduct } from "../../../../services/sellerService";
@@ -10,115 +9,124 @@ import "./editProduto.css";
 export default function EditarProdutoVendedor() {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const [produtoEdit, setProdutoEdit] = useState(null);
+  const [produto, setProduto] = useState(null);
 
   useEffect(() => {
-    if (!state || !state.produto) {
+    if (!state?.produto) {
       toast.error("Produto não encontrado.");
       navigate("/vendedor/produtos");
     } else {
-      setProdutoEdit(state.produto);
+      setProduto(state.produto);
     }
   }, [state, navigate]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProdutoEdit((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  function handleChange(e) {
+    const { name, value, type } = e.target;
 
-  const handleSubmit = async (e) => {
+    const newValue = type === "number" ? parseFloat(value) || 0 : value;
+
+    setProduto((prev) => ({
+      ...prev,
+      [name]: newValue,
+    }));
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    const resultado = await updateProduct(produtoEdit.id, produtoEdit);
-    if (resultado) {
+    try {
+      const resultado = await updateProduct(produto.id, produto);
       toast.success("Produto atualizado com sucesso!");
       setTimeout(() => {
         navigate("/vendedor/produtos");
       }, 1000);
-    } else {
+    } catch (error) {
       toast.error("Erro ao atualizar o produto.");
     }
-  };
+  }
 
-  if (!produtoEdit) return <p>Carregando...</p>;
+  if (!produto) return <p className="carregando-texto">Carregando...</p>;
 
   return (
     <>
       <VendedorHeader />
+      <ToastContainer autoClose={5000} position="top-right" />
+
       <div className="editar-produto-wrapper">
-        <ToastContainer autoClose={5000} position="top-right" />
         <form className="editar-produto-form-layout" onSubmit={handleSubmit}>
           <h2>Editar Produto</h2>
+
           <div className="form-section">
             <div className="form-column">
-              <label>Título</label>
+              <label htmlFor="title">Título</label>
               <input
                 name="title"
-                value={produtoEdit.title}
+                value={produto.title}
                 onChange={handleChange}
                 required
               />
 
-              <label>Marca</label>
+              <label htmlFor="brand">Marca</label>
               <input
                 name="brand"
-                value={produtoEdit.brand}
+                value={produto.brand}
                 onChange={handleChange}
                 required
               />
 
-              <label>Categoria</label>
+              <label htmlFor="category">Categoria</label>
               <input
                 name="category"
-                value={produtoEdit.category}
+                value={produto.category}
                 onChange={handleChange}
                 required
               />
 
-              <label>Preço</label>
+              <label htmlFor="price">Preço</label>
               <input
                 type="number"
                 name="price"
-                value={produtoEdit.price}
+                step="0.01"
+                value={produto.price}
                 onChange={handleChange}
                 required
               />
             </div>
 
             <div className="form-column">
-              <label>Descrição</label>
+              <label htmlFor="description">Descrição</label>
               <textarea
                 name="description"
-                value={produtoEdit.description}
+                value={produto.description}
                 onChange={handleChange}
                 rows={6}
                 required
               />
 
-              <label>Desconto (%)</label>
+              <label htmlFor="discountPercentage">Desconto (%)</label>
               <input
                 type="number"
                 name="discountPercentage"
-                value={produtoEdit.discountPercentage}
+                step="0.01"
+                value={produto.discountPercentage}
                 onChange={handleChange}
                 required
               />
 
-              <label>Estoque</label>
+              <label htmlFor="stock">Estoque</label>
               <input
                 type="number"
                 name="stock"
-                value={produtoEdit.stock}
+                value={produto.stock}
                 onChange={handleChange}
                 required
               />
             </div>
           </div>
 
-          <button type="submit">Salvar Alterações</button>
+          <button type="submit" className="editar-produto-btn">
+            Salvar Alterações
+          </button>
         </form>
       </div>
     </>

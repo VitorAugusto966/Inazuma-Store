@@ -5,34 +5,51 @@ import "./home.css";
 
 export default function VendedorHome() {
   useEffect(() => {
-    document.title = "Painel do Vendedor";
+    setPageTitle();
   }, []);
+
+  function setPageTitle() {
+    document.title = "Painel do Vendedor";
+  }
+
+  const cardInfo = [
+    {
+      icon: <FaBoxOpen className="seller-icon" />,
+      title: "Meus Produtos",
+      description: "Visualize, edite ou remova seus produtos.",
+    },
+    {
+      icon: <FaClipboardList className="seller-icon" />,
+      title: "Pedidos",
+      description: "Acompanhe os pedidos feitos para sua loja.",
+    },
+    {
+      icon: <FaPlusCircle className="seller-icon" />,
+      title: "Adicionar Produto",
+      description: "Cadastre novos produtos na plataforma.",
+    },
+  ];
 
   return (
     <>
       <SellerHeader />
-      <div className="seller-home">
-        <h1>Painel do Vendedor</h1>
-        <p>Gerencie seus produtos e pedidos com praticidade.</p>
 
-        <div className="seller-cards">
-          <div className="seller-card">
-            <FaBoxOpen className="seller-icon" />
-            <h2>Meus Produtos</h2>
-            <p>Visualize, edite ou remova seus produtos.</p>
-          </div>
-          <div className="seller-card">
-            <FaClipboardList className="seller-icon" />
-            <h2>Pedidos</h2>
-            <p>Acompanhe os pedidos feitos para sua loja.</p>
-          </div>
-          <div className="seller-card">
-            <FaPlusCircle className="seller-icon" />
-            <h2>Adicionar Produto</h2>
-            <p>Cadastre novos produtos na plataforma.</p>
-          </div>
-        </div>
-      </div>
+      <main className="seller-home">
+        <header>
+          <h1>Painel do Vendedor</h1>
+          <p>Gerencie seus produtos e pedidos com praticidade.</p>
+        </header>
+
+        <section className="seller-cards">
+          {cardInfo.map((card, index) => (
+            <div className="seller-card" key={index}>
+              {card.icon}
+              <h2>{card.title}</h2>
+              <p>{card.description}</p>
+            </div>
+          ))}
+        </section>
+      </main>
     </>
   );
 }
