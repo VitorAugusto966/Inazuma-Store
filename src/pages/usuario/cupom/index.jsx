@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import Header from "../../components/header";
 import Sidebar from "../../components/sideBar";
@@ -11,17 +11,15 @@ import "./cupom.css";
 export default function Cupons() {
   const [cupons, setCupons] = useState([]);
   const [novoCupom, setNovoCupom] = useState("");
-
   const user = useSelector((state) => state.user.user);
   const userId = user?.id;
 
   const carregarCupons = useCallback(async () => {
     if (!userId) return;
     try {
-      const cuponsAPI = await getCupons(userId);
-      setCupons(cuponsAPI || []);
+      const response = await getCupons(userId);
+      setCupons(response || []);
     } catch (error) {
-      console.error("Erro ao carregar cupons:", error);
       toast.error("Erro ao carregar cupons");
     }
   }, [userId]);
@@ -31,34 +29,56 @@ export default function Cupons() {
     carregarCupons();
   }, [carregarCupons]);
 
-  const handleAplicarCupom = async () => {
+  const validarCupom = () => {
     if (!userId) {
       toast.error("Você precisa estar logado para aplicar um cupom!");
-      return;
+      return false;
     }
-
     if (novoCupom.trim() === "") {
       toast.warning("Digite um cupom válido!");
-      return;
+      return false;
     }
+    return true;
+  };
+
+  const handleAplicarCupom = async () => {
+    if (!validarCupom()) return;
 
     try {
       const resultado = await aplicarCupom(userId, novoCupom, user.token);
-      console.log("Token do usuário:", user.token);
-      console.log("Resultado da API:", resultado);
 
       if (resultado) {
         toast.success(`Cupom "${novoCupom}" aplicado com sucesso!`);
         setNovoCupom("");
-        await carregarCupons(); 
+        carregarCupons();
       } else {
         toast.error("Erro ao aplicar cupom. Verifique o código e tente novamente.");
       }
     } catch (error) {
-      console.error("Erro ao aplicar cupom:", error);
       toast.error("Erro ao aplicar cupom.");
     }
   };
+
+  const renderCupomCard = (cupom, index) => (
+    <div className="cupom-card" key={index}>
+      <div className="cupom-info">
+        <p><FaTag className="icon" /> <strong>{cupom.name}</strong></p>
+        <p>Desconto: <strong>{cupom.description}</strong></p>
+        <p>
+          Válido até:{" "}
+          <strong>
+            {cupom.expirationDate
+              ? new Date(cupom.expirationDate).toLocaleString("pt-BR", {
+                  dateStyle: "short",
+                  timeStyle: "short",
+                })
+              : "Sem data de validade"}
+          </strong>
+        </p>
+      </div>
+      <FaCheckCircle className="check-icon" />
+    </div>
+  );
 
   return (
     <>
@@ -66,43 +86,17 @@ export default function Cupons() {
       <div className="app-container">
         <ToastContainer autoClose={5000} position="top-right" />
         <Sidebar />
+
         <div className="content-container">
           <div className="cupons-container">
-            <h2>
-              <FaGift color="#007bff" /> Meus Cupons
-            </h2>
+            <h2><FaGift color="#007bff" /> Meus Cupons</h2>
 
             {user ? (
               <>
                 <div className="cupons-list">
-                  {cupons.length > 0 ? (
-                    cupons.map((cupom, index) => (
-                      <div className="cupom-card" key={index}>
-                        <div className="cupom-info">
-                          <p>
-                            <FaTag className="icon" /> <strong>{cupom.name}</strong>
-                          </p>
-                          <p>
-                            Desconto: <strong>{cupom.description}</strong>
-                          </p>
-                          <p>
-                            Válido até:{" "}
-                            <strong>
-                              {cupom.expirationDate
-                                ? new Date(cupom.expirationDate).toLocaleString("pt-BR", {
-                                    dateStyle: "short",
-                                    timeStyle: "short",
-                                  })
-                                : "Sem data de validade"}
-                            </strong>
-                          </p>
-                        </div>
-                        <FaCheckCircle className="check-icon" />
-                      </div>
-                    ))
-                  ) : (
-                    <p className="sem-cupons">Nenhum cupom disponível</p>
-                  )}
+                  {cupons.length > 0
+                    ? cupons.map(renderCupomCard)
+                    : <p className="sem-cupons">Nenhum cupom disponível</p>}
                 </div>
 
                 <div className="cupom-input-container">

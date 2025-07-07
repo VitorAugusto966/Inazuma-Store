@@ -1,77 +1,77 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../../../redux/user/userSlice";
 import { atualizarUser } from "../../../services/userService";
 import Header from "../../components/header";
 import Sidebar from "../../components/sideBar";
 import { FaUser, FaEnvelope, FaCalendarAlt, FaSave } from "react-icons/fa";
-import "./perfil.css";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import "./perfil.css";
 
 export default function Profile() {
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
   const user = useSelector((state) => state.user.user);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    nome_social: user?.nome_social || "",
-    nome_usuario: user?.nome_usuario || "",
-    email: user?.email || "",
-    data_nascimento: user?.data_nascimento || ""
+    nome_social: "",
+    nome_usuario: "",
+    email: "",
+    data_nascimento: "",
   });
 
   useEffect(() => {
-    setFormData({
-      nome_social: user?.nome_social || "",
-      nome_usuario: user?.nome_usuario || "",
-      email: user?.email || "",
-      data_nascimento: user?.data_nascimento || ""
-    });
+    document.title = "Inazuma Store - Meu Perfil";
+
+    if (user) {
+      setFormData({
+        nome_social: user.nome_social || "",
+        nome_usuario: user.nome_usuario || "",
+        email: user.email || "",
+        data_nascimento: user.data_nascimento || "",
+      });
+    }
   }, [user]);
 
-  useEffect(() => {
-    document.title = "Inazuma Store - Meu Perfil";
-  }, []);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = ({ target: { name, value } }) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
+
     try {
-      const userData = await atualizarUser(user.id, formData)
-      if (userData) {
+      const userAtualizado = await atualizarUser(user.id, formData);
+
+      if (userAtualizado) {
         toast.success("Usuário atualizado com sucesso");
+        dispatch(
+          updateUser({
+            nome_social: formData.nome_social,
+            nome_usuario: formData.nome_usuario,
+            data_nascimento: formData.data_nascimento,
+          })
+        );
       } else {
         toast.warning("Usuário inválido!");
       }
     } catch (error) {
-      toast.error(error);
+      console.error("Erro ao atualizar usuário:", error);
+      toast.error("Erro ao atualizar usuário.");
     } finally {
       setLoading(false);
     }
-
-    dispatch(updateUser({
-      nome_social: formData.nome_social,
-      nome_usuario: formData.nome_usuario,
-      data_nascimento: formData.data_nascimento
-    }));
   };
 
   return (
     <>
       <Header />
       <div className="app-container">
-        <ToastContainer
-          autoClose={5000}
-          position="top-right"
-        />
+        <ToastContainer autoClose={5000} position="top-right" />
         <Sidebar />
+
         <div className="content-container">
           <div className="profile-container">
             <div className="profile-box">
@@ -85,7 +85,6 @@ export default function Profile() {
                       id="nome_social"
                       type="text"
                       name="nome_social"
-                      placeholder="Nome Social"
                       value={formData.nome_social}
                       onChange={handleChange}
                       required
@@ -99,7 +98,6 @@ export default function Profile() {
                       id="nome_usuario"
                       type="text"
                       name="nome_usuario"
-                      placeholder="Nome de Usuário"
                       value={formData.nome_usuario}
                       onChange={handleChange}
                       required
@@ -115,7 +113,6 @@ export default function Profile() {
                       id="email"
                       type="email"
                       name="email"
-                      placeholder="E-mail"
                       value={formData.email}
                       disabled
                     />
@@ -137,7 +134,7 @@ export default function Profile() {
 
                 <button type="submit" className="save-btn" disabled={loading}>
                   <FaSave />
-                  {loading ? "Carregando..." : "Salvar Alterações"}
+                  {loading ? "Salvando..." : "Salvar Alterações"}
                 </button>
               </form>
             </div>
