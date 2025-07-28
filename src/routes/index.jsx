@@ -31,6 +31,7 @@ import ViewProdutos from "../pages/vendedor/produto/viewProduto/index";
 import ProdutoVendedorDetalhe from "../pages/vendedor/produto/produto-detalhe/index";
 import EditarProdutoVendedor from '../pages/vendedor/produto/editProduto/index'
 import VendedorPedidos from "../pages/vendedor/pedido/viewPedidos/index";
+import CheckoutCreditCard from "../pages/pedido/checkout/checkoutCreditCard";
 
 function RoutesApp() {
     return (
@@ -43,6 +44,7 @@ function RoutesApp() {
             <Route path="/categoria/:categoria" element={<Categoria />} />
             <Route path="/busca/:produto" element={<Busca />} />
             <Route path="/produto-detalhes" element={<ProdutoDetalhe />} />
+            <Route path="/checkout-card" element={<CheckoutCreditCard/>}/>
 
             {/* Rotas protegidas */}
             <Route path="/profile" element={<Private><Profile /></Private>} />
