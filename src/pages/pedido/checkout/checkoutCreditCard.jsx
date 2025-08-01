@@ -61,7 +61,7 @@ const CheckoutCreditCard = () => {
   };
 
   return (
-    <div className="checkout-container">
+    <div className="checkout-card-container">
       <ToastContainer position="top-right" autoClose={3000} />
       <div className={`card-preview-container ${isFlipped ? "flipped" : ""}`}>
         <div className="card-preview card-front">
@@ -135,7 +135,7 @@ const CheckoutCreditCard = () => {
           </label>
         </div>
 
-        <button type="submit">Adicionar Cartão</button>
+        <button type="submit">Finalizar Compra</button>
       </form>
     </div>
   );

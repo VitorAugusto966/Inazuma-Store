@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
-import { createOrder } from "../../../services/orderService";
 import { getCupons } from "../../../services/cupomService";
 import { clearCart } from "../../../redux/cart/cartSlice";
 import Header from "../../components/header";
@@ -18,39 +17,26 @@ export default function Checkout() {
   const [cupomSelecionado, setCupomSelecionado] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("cartao");
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [parcelas, setParcelas] = useState(1);
 
   const FRETE_PADRAO = 15;
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-
-  const ehFreteGratis = cupomSelecionado?.description
-    ?.toLowerCase()
-    .includes("frete grátis");
-
-  const ehDescontoTotal = cupomSelecionado?.description
-    ?.toLowerCase()
-    .includes("100%");
-
+  const ehFreteGratis = cupomSelecionado?.description?.toLowerCase().includes("frete grátis");
   const desconto =
     cupomSelecionado && !ehFreteGratis
-      ? (parseFloat(cupomSelecionado.description.replace("%", "")) / 100) *
-        totalPrice
+      ? (parseFloat(cupomSelecionado.description.replace("%", "")) / 100) * totalPrice
       : 0;
 
   const frete = ehFreteGratis ? 0 : FRETE_PADRAO;
-
   const totalComDesconto = totalPrice - desconto + frete;
+  const valorParcela = (totalComDesconto / parcelas).toFixed(2);
 
   useEffect(() => {
     document.title = "Inazuma Store - Checkout";
-
     if (user?.address) {
-      setSelectedAddress(
-        `${user.address.rua}, ${user.address.numero} - ${user.address.cidade}`
-      );
+      const { rua, numero, cidade } = user.address;
+      setSelectedAddress(`${rua}, ${numero} - ${cidade}`);
     }
 
     const fetchCupons = async () => {
@@ -62,63 +48,33 @@ export default function Checkout() {
           return !cupom.expirationDate || validade > new Date();
         });
         setCupons(cuponsValidos);
-      } catch (err) {
+      } catch {
         toast.error("Erro ao buscar cupons.");
-        console.error(err);
       }
     };
 
     fetchCupons();
   }, [user]);
 
-  const handleCheckout = async () => {
-    if (!user?.id || !user?.token) {
-      toast.warning("Você precisa estar logado.");
-      return;
-    }
+  const handleCheckout = () => {
+    if (!user?.id || !user?.token) return toast.warning("Você precisa estar logado.");
+    if (!selectedAddress) return toast.warning("Selecione um endereço.");
+    if (cartItems.length === 0) return toast.warning("Seu carrinho está vazio.");
 
-    if (!selectedAddress) {
-      toast.warning("Selecione um endereço.");
-      return;
-    }
-
-    if (cartItems.length === 0) {
-      toast.warning("Seu carrinho está vazio.");
-      return;
-    }
-
-    try {
-      const order = await createOrder(
-        user.id,
-        selectedAddress,
-        cartItems.map(item => ({
-          productId: item.id,
-          quantity: item.quantity
-        })),
-        totalComDesconto,
-        user.token,
-        "Pendente",
-        user.email
-      );
-
-      if (order) {
-        toast.success("Pedido realizado com sucesso!");
-        dispatch(clearCart());
-        setTimeout(() => navigate("/pedidos"), 2000);
-      }
-    } catch (error) {
-      toast.error("Erro ao finalizar o pedido.");
-      console.error(error);
+    if (paymentMethod === "cartao") {
+      navigate("/checkout-card");
+    } else {
+      toast.success("Forma de pagamento selecionada!");
     }
   };
 
   return (
     <>
       <Header />
-      <ToastContainer autoClose={5000} position="top-right" />
+      <ToastContainer autoClose={4000} position="top-right" />
       <div className="checkout-container">
         <div className="checkout-form">
-          <h2>📍 Endereço de Entrega</h2>
+          <h2>📦 Endereço de Entrega</h2>
           <select value={selectedAddress} onChange={e => setSelectedAddress(e.target.value)}>
             {user.address ? (
               <option value={selectedAddress}>{selectedAddress}</option>
@@ -135,7 +91,20 @@ export default function Checkout() {
             <option value="dinheiro">Dinheiro</option>
           </select>
 
-          <h2>🎁 Selecione um Cupom</h2>
+          {paymentMethod === "cartao" && (
+            <>
+              <h2>🔢 Parcelamento</h2>
+              <select value={parcelas} onChange={e => setParcelas(Number(e.target.value))}>
+                {[...Array(12)].map((_, i) => (
+                  <option key={i + 1} value={i + 1}>
+                    {i + 1}x de R$ {(totalComDesconto / (i + 1)).toFixed(2)}
+                  </option>
+                ))}
+              </select>
+            </>
+          )}
+
+          <h2>🎁 Cupom de Desconto</h2>
           <select
             value={cupomSelecionado?.name || ""}
             onChange={e => {
@@ -154,7 +123,7 @@ export default function Checkout() {
         </div>
 
         <div className="checkout-summary">
-          <h2>📦 Resumo</h2>
+          <h2>🧾 Resumo do Pedido</h2>
           <ul>
             {cartItems.map(item => (
               <li key={item.id}>
@@ -163,27 +132,26 @@ export default function Checkout() {
             ))}
           </ul>
 
-          {cupomSelecionado && ehFreteGratis && (
-            <p className="cupom-aplicado">
-              Cupom <strong>"{cupomSelecionado.name}"</strong> aplicado: Frete Grátis 🚚
-            </p>
-          )}
-
-          {cupomSelecionado && !ehFreteGratis && (
-            <p className="cupom-aplicado">
-              Cupom <strong>"{cupomSelecionado.name}"</strong> aplicado: -R$ {desconto.toFixed(2)}
-            </p>
+          {cupomSelecionado && (
+            <div className="cupom-aplicado">
+              <strong>{cupomSelecionado.name}</strong>:{" "}
+              {ehFreteGratis
+                ? "Frete Grátis 🚚"
+                : `Desconto de R$ ${desconto.toFixed(2)}`}
+            </div>
           )}
 
           <p className="frete">Frete: R$ {frete.toFixed(2)}</p>
           <p className="total-price">
-            Total: R$ {totalComDesconto.toFixed(2)}{" "}
-            {ehDescontoTotal && frete > 0 && (
-              <span style={{ fontSize: "0.9rem", color: "#000" }}>
-                (valor do frete)
+            Total: R$ {totalComDesconto.toFixed(2)}
+            {paymentMethod === "cartao" && (
+              <span className="parcelamento-info">
+                {" "}
+                ou {parcelas}x de R$ {valorParcela}
               </span>
             )}
           </p>
+
           <button className="checkout-btn" onClick={handleCheckout}>
             Finalizar Compra
           </button>

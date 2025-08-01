@@ -1,119 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f4f6f9;
+  color: #222;
+  line-height: 1.5;
+}
+
 .checkout-container {
   display: flex;
-  justify-content: space-between;
-  gap: 30px;
-  padding: 40px 60px;
-  background-color: #f9f9f9;
-  min-height: 90.7vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px 20px;
+  gap: 40px;
+  min-height: 100vh;
+  background-color: #f4f6f9;
 }
 
 .checkout-form,
 .checkout-summary {
-  background-color: #e9ecef; 
-  padding: 30px;
-  border-radius: 14px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-  flex: 1;
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  flex: 1 1 460px;
+  max-width: 600px;
+  transition: box-shadow 0.3s ease;
 }
 
 .checkout-form:hover,
 .checkout-summary:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
-  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
+
 
 .checkout-form h2,
 .checkout-summary h2 {
-  font-size: 24px;
-  margin-bottom: 24px;
-  color: #1a1a1a;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #1d1d1f;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
+
 
 .checkout-form select,
 .checkout-form input {
   width: 100%;
-  padding: 14px 16px;
-  border-radius: 10px;
-  border: 1px solid #ced4da;
+  padding: 14px;
+  font-size: 1rem;
   margin-bottom: 20px;
-  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
   background-color: #fff;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .checkout-form select:focus,
 .checkout-form input:focus {
-  border-color: #007bff;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
 }
 
 .checkout-summary ul {
   list-style: none;
   padding: 0;
-  margin: 0 0 20px;
+  margin-bottom: 20px;
 }
 
 .checkout-summary li {
-  font-size: 16px;
-  margin-bottom: 10px;
+  font-size: 1rem;
+  margin-bottom: 12px;
   color: #333;
 }
 
+
 .cupom-aplicado {
-  background-color: #d4edda;
-  border: 1px solid #28a745;
-  padding: 10px 15px;
-  border-radius: 8px;
-  color: #155724;
+  background-color: #e6f4ea;
+  border: 1px solid #3cb371;
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: #2e7d32;
   font-size: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
+
 
 .total-price {
   font-size: 22px;
-  font-weight: bold;
+  font-weight: 700;
   color: #111;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
-.frete{
+
+.frete {
   font-size: 16px;
-  font-weight: bold;
-  color: #111;
-  margin-bottom: 20px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
 }
+
+.parcelamento-info {
+  font-size: 15px;
+  font-weight: 500;
+  color: #555;
+  margin-left: 4px;
+}
+
+
 .checkout-btn {
-  background: linear-gradient(135deg, #007bff, #0056b3);
+  background: linear-gradient(135deg, #4a90e2, #0066cc);
   color: white;
-  font-size: 17px;
-  padding: 16px 26px;
+  padding: 14px;
+  font-size: 1rem;
   border: none;
   border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
   width: 100%;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
   transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 102, 204, 0.3);
 }
 
 .checkout-btn:hover {
-  transform: scale(1.02);
-  background: linear-gradient(135deg, #0056b3, #004085);
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #3a7bd5, #005bb5);
 }
 
-@media (max-width: 900px) {
+
+@media (max-width: 960px) {
   .checkout-container {
     flex-direction: column;
-    padding: 20px;
+    padding: 30px 16px;
   }
 
   .checkout-form,
   .checkout-summary {
     width: 100%;
+    max-width: 100%;
   }
 }
