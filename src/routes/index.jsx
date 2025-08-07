@@ -31,8 +31,8 @@ import ViewProdutos from "../pages/vendedor/produto/viewProduto/index";
 import ProdutoVendedorDetalhe from "../pages/vendedor/produto/produto-detalhe/index";
 import EditarProdutoVendedor from "../pages/vendedor/produto/editProduto/index";
 import VendedorPedidos from "../pages/vendedor/pedido/viewPedidos/index";
-import CheckoutCreditCard from "../pages/pedido/checkout/checkoutCreditCard";
-import CheckoutPix from "../pages/pedido/checkout/checkoutPix";
+import CheckoutCreditCard from "../pages/pedido/checkout/checkoutCard/index";
+import CheckoutPix from "../pages/pedido/checkout/checkoutPix/index";
 
 function RoutesApp() {
   return (

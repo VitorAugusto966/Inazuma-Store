@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./checkoutCard.css";
-import generic from "../../../assets/inazuma_card.png"; 
-import elo from '../../../assets/elo.png'
-import amex from '../../../assets/amex.svg'
-import hiper from '../../../assets/hiper.svg'
-import master from '../../../assets/mastercard.png'
-import visa from '../../../assets/visa.png'
+import generic from "../../../../assets/inazuma_card.png"; 
+import elo from '../../../../assets/elo.png'
+import amex from '../../../../assets/amex.svg'
+import hiper from '../../../../assets/hiper.svg'
+import master from '../../../../assets/mastercard.png'
+import visa from '../../../../assets/visa.png'
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
